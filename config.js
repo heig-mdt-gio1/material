@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const fs = require("fs");
 const package = require("./package.json");
-const version = "2022";
+const version = "2024";
 
 const config = {
   title: package.description,
