@@ -18,8 +18,8 @@ const config = {
     }
   },
   publish: {
-    gitUrl: "git@github.com:tazaf/heig-mdt-gio1.git",
-    baseUrl: "https://tazaf.github.io/heig-mdt-gio1/",
+    gitUrl: "git@github.com:heig-mdt-gio1/material.git",
+    baseUrl: "https://heig-mdt-gio1.github.io/material/",
     branch: "gh-pages",
     version
   },
