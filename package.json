@@ -5,18 +5,19 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tazaf/heig-mdt-gio1"
+    "url": "https://github.com/heig-mdt-gio1/material"
   },
   "author": "Mathias Oberson <mathias.oberson@heig-vd.ch>",
   "contributors": [
     "Jens Ingensand <jens.ingensand@heig-vd.ch>",
-    "Thibaud Chassin <thibaud.chassin@heig-vd.ch>"
+    "Thibaud Chassin <thibaud.chassin@heig-vd.ch>",
+    "Olivier Lemer <olivier.lemer@heig-vd.ch>"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Tazaf/heig-mdt-gio1/issues"
+    "url": "https://github.com/heig-mdt-gio1/material/issues"
   },
-  "homepage": "https://tazaf.github.io/heig-mdt-gio1/latest/",
+  "homepage": "https://heig-mdt-gio1.github.io/material/latest/",
   "scripts": {
     "build": "courses-md build",
     "deploy": "courses-md publish",

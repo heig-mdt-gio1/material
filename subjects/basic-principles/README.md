@@ -3,6 +3,7 @@
 <!-- slide-front-matter class: center, middle -->
 
 ## Summary
+<!-- slide-front-matter class: middle -->
 
 Learn about some basic principles that will help you write cleaner, more organised code
 
@@ -43,29 +44,30 @@ Learn about some basic principles that will help you write cleaner, more organis
 
 Writing code can be **hard**. You have to:
 
-- Know the **language** you're writing with
-- Know how and if it can do what you want it to
-- Write the code without **syntax** errors
-- Write code **without nasty bugs**
+- Know the **programming language**
+- Know **what** it can do
+- Know **how** it can do it
+- Avoid **syntax errors**
+- Avoid **weird bugs**
 - ...
 
-Thus, beginner programmers could write code while only caring about the end result (a program without bugs that does what it's supposed to), without thinking about **how they actually write the code** itself.
+Overwhelmed, beginners might just try until it works, without thinking about **how they write the code** itself.
 
 This often results in [**Spaghetti Code**][spaghetti-code] ; a code that has **no structure** and is **hard to read, understand, fix and maintain**.
 
-We'll see in this course the **basic principles that you should always have in the back of your mind** when writing code.
+In this course, you will learn some **core principles** that will help you write **cleaner, more organised code**.
 
 > Please note that all future code illustrations will use JavaScript
 
 ## D.R.Y.
 
-This first principle is an acronym _(many of those principles are)_ that means:
+This first principle is an acronym _(like many)_:
 
 [**D**on't **R**epeat **Y**ourself][d.r.y.]
 
-The meaning is quite obvious: **you should not repeat the same piece of logic twice in your program**.
+The meaning is obvious: **do not repeat the same piece of logic twice in your program**.
 
-If you find yourself copy/pasting or writing the same line(s) more than one time, then you might want to ask yourself if this couldn't be **extracted in a shareable program unit**.
+If you find yourself copy/pasting or writing the same line(s) more than one time, then ask yourself: *couldn't this be **extracted in a shareable program unit**.*
 
 In JavaScript (and many other langauges), this unit usually is a **function** (or a class).
 
@@ -77,7 +79,7 @@ Let's illustrate that with a simple script that extracts the initials out of a p
 
 ```js
 // This value could come from any kind of user input
-const name = "Mathias Oberson";
+const name = "Olivier Lemer";
 
 // Create an array of strings by spliting the name at each space
 const parts = name.split(" ");
@@ -89,28 +91,27 @@ const secondInitial = parts[1].charAt(0).toUpperCase() + ".";
 
 // Concatenate both initials
 const initials = firstInitial + secondInitial;
-console.log(initials); // Prints: M.O.
+console.log(initials); // Prints: O.L.
 ```
 
 > What's not D.R.Y. about this code?
 
 #### Explanation
 
-The main issue with this code is the fact that we wrote twice the logic to **extract the initial off of a name's part**.
+We wrote the logic to **extract the initial off of a name's part** twice!
 
-This is not a very complex logic, and it's only one line of code, so why bother?!
+*So what ? It's only one line of code, and it's not that complex..*
 
-- Copy/pasting (or rewriting) it every time we want to use it increases significantly the risk of making a mistake (forgetting the final dot, messing up with the indexes, ...).
-- If the requirements change and initials should now be in lower case, you'll have to replace `toUpperCase()` with `toLowerCase()` everywhere you pasted the snippet of code
-  > And don't even think about using your IDE's search & replace feature... `toUpperCase()` is probably used in many unrelated places
-- Plus, reading a line like `parts[0].charAt(0).toUpperCase() + "."` does not instantly make you think: "A'ight! That's an initial extraction".
+- **Risks of mistakes**: at each copy/paste or rewrite, you can make a mistake (forget the final dot, mess up the indices, ...)
+- **Maintainability**: if, one hour later, something has to change (requirements changed, a bug was found, ...), you'll have to modify **every** instance of that line of code. You'll likely forget one, or make a mistake.
+- **Readability**: `parts[0].charAt(0).toUpperCase() + "."` doesn't instantly make you think: "A'ight! That's an initial extraction". Remember: *code should document itself*.
 
 So, let's rewrite some of this code by extracting the repeated line in its own function.
 
 #### D.R.Y.er code
 
 ```js
-const name = "Mathias Oberson";
+const name = "Olivier Lemer";
 
 const parts = name.split(" ");
 
@@ -127,20 +128,20 @@ console.log(initials);
 
 The code is now:
 
-- **More readable**: the function name `extractInitial` is clear enough so we understand what it does
-- **More maintainable**: only one place to modify, if the initial extraction process ever changed
+- **More readable**: `extractInitial` clearly shows what's happening.
+- **More maintainable**: only one place to modify, if we ever need to.
+
+What do we think of this?
 
 #### Ultimate D.R.Y.
 
-But we could by D.R.Y.er again!
-
-- The call to `extractInitial` is written twice. That's not an issue _per se_, but since `parts` is an `array` we should write our code to loop through it
-- The overall logic (splitting the name, extracting and concatenating initials) will probably be repeated whenever we need initials from a name
+- It's likely not the only time we'll need to extract initials from a name
+- `extractInitial` is called twice. That's not a problem here, but could become one if the name had more than two parts.
 
 Let's rewrite our code again:
 
 ```js
-const name = "Mathias Oberson";
+const name = "Dont Repeat Yourself";
 
 console.log(getInitialsFromName(name));
 
@@ -160,17 +161,25 @@ function extractInitial(word) {
 }
 ```
 
+???
+
+We did two things here
+- We created a `for` loop to handle any number of parts in the name, hence avoiding duplication and making the code more generic.
+- We created a `getInitialsFromName` function to make it easy to re-use this logic elsewhere in our code.
+
+On this second point, a small note : something to avoid is **early optimization**. You should not start refactoring if you're not sure it will be useful later. In this case, it is a simple enough refactor, and it's likely enough that we'll need it again later.
+
 ### Pitfalls and dangers of overD.R.Y.ing
 
 - D.R.Y. is **not** about preventing the repetition of **code**, but rather the repetition of **logic**
 
-  Repeating the same line of code twice might be perfectly OK if this repetition is done in different **contexts or features**
+  Repeating the same line of code can be OK, if this repetition is done in different **contexts or features**.
 
-- Trying too hard to D.R.Y. your code will probably lead to **higher complexity**, due to unnecessary abstractions or premature refactoring
+- Excessive D.R.Y.ing can lead to **higher complexity**, due to unnecessary abstractions or premature refactoring
 
-  You should avoid applying the D.R.Y. principle when it's not necessary ("just in case").
+  You should avoid applying the D.R.Y. principle when it's not necessary (there is no "just in case").
 
-> Following the D.R.Y. principle should always be balanced with **code simplicity** and only implementing what's **currently necessary**, both of which are explored later on this slidedoc.
+> Always try to balance the D.R.Y. principle with **code simplicity** by only implementing what's **currently necessary**. We will explore this further later.
 
 ## K.I.S.S.
 
@@ -184,19 +193,19 @@ Although short, this idea requires a little bit of details...
 
 ### The Art of Naming
 
-A very basic way to write K.I.S.S. code is to allow yourself some time to think about pertinent names for your variables, constants, functions, classes, etc.
+One aspect of K.I.S.S. is to take the time to give **pertinent names** to your code elements.
 
 You could be tempted to just name them `a`, `b`, `c`, `p1`, `fun`, etc. because you just want to get things done.
 
-That's a **wrong trade off**.
+That's a **wrong trade off** : you will loose time in the end.
 
-Read the same script **the day after** you wrote it, and track how many minutes you're **losing** trying to remember what this `ccu` variable represents.
+Read the same script **one day later**, and track how many minutes you're **losing** trying to remember what this `ccu` variable represents.
 
-Nowadays, all IDEs and text editor helps you reference existing symbols in your code to prevent typos, so the length of their name doesn't really matter.
+Nowadays, all IDEs help you reference existing symbols in your code, so the length doesn't really matter.
 
-**Be descriptive!**\* If your variable is supposed to contain an object representing the currently connected user, then call it `currentlyConnectedUser`, or `currentUser`.
+**Be descriptive!**\* What the variable is should be immediately obvious. If it contains the currently connected user, then call it `currentlyConnectedUser`, or `currentUser`.
 
-> (\*) Don't fall into the opposite habit, though, going the Java way and starting naming your classes `AbstractFlushClearCacheMessageBuilderOnTransactionSupport` because that's the most descriptive you can get...
+> (\*) Don't fall into the opposite habit, though. `AbstractFlushClearCacheMessageBuilderOnTransactionSupport` is descriptive, sure, but not very practical.
 
 ### Do not write code to show off...
 
@@ -231,47 +240,43 @@ There's a few more lines, but the structure and the logic are **way more obvious
 
 ### ...to a certain extent
 
-- Do not refrain yourself from **using language specific features** by fear of others not being able to understand them: if people don't know them, they will **learn** the first time they encounter them, and understand them thereafter.
+- **Do use language-specific features**. If people don't understand because they don't know them, they will **learn** the first time they encounter them, and understand them thereafter.
 
-- Also **don't sacrifice performance** over readability. You can write performant code while still being comprehensible for programmer with general knowledge of the used language.
+- **Don't sacrifice performance** over readability. You can write performant code while still being comprehensible for programmer with general knowledge of the used language.
 
-- At the very least, if you think a bunch of lines you wrote are necessary to your application, but could be a little be to complicated for your fellow developpers, **explain them by commenting them!**
+- **Explain your code** in comments, when you can't make it simpler, and are worried about its readability.
 
 ### Take a step back
 
-In general, to apply this K.I.S.S. principle, you should as often as possible **take a step back** on what you just wrote or designed and ask yourself if all of this **could not be simplified**, stripped down to its basics without sacrifices for the feature.
+In general, K.I.S.S. is about **taking a step back** on what you just did, and ask yourself if all of this **could not be simplified**, stripped down to its basics without sacrifices for the feature.
 
-> Taking the time to **think about the design** of your application code and structure will help you in the long run, when debugging, maintening or adding features to it.
+> That's a general advice ; **taking time to think about the design** of your code will help with debugging, maintaining, and adding features.
 
 - Isn't there a **library** out there that already does what I'm trying to implement? _(the less code you type, the less issue you'll create)_
 - Doesn't the language I use offer some **native behavior** for what I'm trying to do? _(don't reinvent the wheel)_
 - Do I really need **all those classes/functions** in my code? _(too much of them will make your application harder to grasp)_
 
-And if you find yourself changing or modifying your code, **don't hesitate to delete unused code**.
-
-With source control tools like Git, you'll be able to **come back to it** if needed, and it will not **bloat** your code base _(other won't ask themselves when it's used or what it does)_.
+And if you find yourself changing or modifying your code, **don't hesitate to delete unused code**. It's never lost, with source control like Git.
 
 ## Y.A.G.N.I.
 
-The third principle to keep in minde is Y.A.G.N.I., which stands for
+The third principle to keep in mind is Y.A.G.N.I., which stands for
 
 [**Y**ou **A**ren't **G**onna **N**eed **I**t][y.a.g.n.i.]
 
-The basis of this principle states that **you should not implement features and functionnality based on their assumed usefullness in the future, but because they are necessary at the time**.
+The basis of this principle states that **you should not implement features and functionnality based on their assumed usefulness in the future, but because they are necessary right now**.
 
-You still should **design** your code so that it **could** easily be **extended or enhanced** in the future ; by properly using functions, classes, interfaces, and other mechanisms provided by the language you're using _(remember to still K.I.S.S., though)_.
+You should still **design** your code to make it **easily extendable** in the future (using functions, classes, interfaces, etc), but never code **more than you need right now**, even if you feel like it will be useful in the future.
 
-But you should **not actually code more** than what you need at present, even if you're 100% sure that this will come in handy in a not-so-distant future.
+Another less direct benefit is that you can **focus on the current feature** you're implementing, and not be distracted by the **future**.
 
 ### You can not predicte the future
 
-Let's suppose that **you did develop an feature** that is not a current requirement, but you're sure it will soon be.
+Let's suppose that **you did develop a feature** that is not a current requirement, but you're sure it will soon be.
 
-- It might happen that the feature you foresaw actually needs to be implemented. It will **probably not** have the exact same requirements you **thought it would**, and you have to modify the code you previously wrote to match the actual requirements of the feature.
+- Maybe you're right. But that feature will **probably not** have the exact same requirements you **thought it would**, and you'll have to modify the code. If you're lucky, those will be minor changes, but more often than not, it will be a **complete refactoring**, and the time you took in the past to implement the feature will have been wasted.
 
-  If you're lucky, it will only be minor changes ; more often than not, it will be **a complete refactoring**. The time you took in the past to implement the feature has been wasted.
-
-- It might also happen that **the code you wrote is never ever used**... you'll then have a code base with unused code. You'll probably forget that it's not used and keep maintaining, optimizing and/or testing it.
+- Maybe you're wrong: **the code you wrote was never needed**... you'll then have a code base with unused code, making it more difficult to understand. You'll probably forget that it's not used and keep maintaining, optimizing and/or testing it.
 
 ## S.R.P.
 

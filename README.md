@@ -1,28 +1,37 @@
 # Master Développement Territorial | Géoinformatique opérationnelle : Développement avancé d’outils (GIO1)
 
+## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Prerequisite](#prerequisite)
-- [Evaluation](#evaluation)
-- [Plan](#plan)
+
+- [Logistics](#logistics)
+  - [Course objectives](#course-objectives)
+  - [Prerequisite](#prerequisite)
+  - [Evaluation](#evaluation)
+- [Weekly schedule](#weekly-schedule)
 - [Documentation](#documentation)
 - [Additional Subjects](#additional-subjects)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+## Logistics
+
+### Course objectives
+
 The goal of this course is to discover concepts and tools to organize the front-end side of a web application and enrich the user interface/experience according to current good practices.
 
 You will:
 
-- learn the basics concepts of code architecture for front-end application
+- learn the basic concepts of code architecture in the context of front-end application
 - use modern web development tools (git, VS Code, ...)
 - develop a web application using a JavaScript framework (VueJS)
-- integrate third-party cartographical libraries (leaflet, openlayers, cesium,...)
+- integrate third-party cartographical libraries (leaflet, openlayers,...)
 
 _This course uses subjects from or based on [COMEM+][comem] [architecture & deployment][comem-archidep], [web-oriented architecture][comem-archioweb] and [mobile development][comem-devmobil] courses taught to students of [Media Engineering][im] at [HEIG-VD][heig], as well as [advanced frontend development][dfa] course taught to students of [MAS-RAD CAS-DAR][masrad-casdar] at [HE-ARC][he-arc]._
 
-## Prerequisite
+### Prerequisite
 
 **Knowledge:**
 
@@ -37,63 +46,98 @@ _This course uses subjects from or based on [COMEM+][comem] [architecture & depl
 - Latest version of [Git][git-install] (2.33.X)
 - Latest version of [VS Code][vs-code] (1.60.X)
 
-## Evaluation
+### Evaluation
 
 **Project requirements - Developing a small geo-portal web application:**
 
 - Developed with VueJS framework
 - Add internal navigation with vue-router
 - Integrate and use [one UI Componants library][vue-ui-lib]
-- A (home)page with geocoding feature ; the use should be able to display the results in 2D or 3D, and your app should use the [GeoAdmin Search REST API][geo-admin-search]
+- A (home)page with geocoding feature ; the use should be able to display the results in 2D, and your app should use the [GeoAdmin Search REST API][geo-admin-search]
 - A page displaying geographical data in 2D (using either [leaflet][leaflet] or [openlayers][openlayers])
-- A page displaying geographical data in 3D (using [cesium][cesium])
 - A static page that describe the project, the tool and the team behind it (yourselves)
 - Project must be version controlled with Git and stored on [GitHub][github]
 
-## Plan
+## Weekly schedule
 
-- [Introduction][intro]
-
-- Code Architecture & Design Patterns
-
-  - [Code and architectural principles][basic-principles]
-  - [Modular JavaScript][js-modules]
-  - [Node Package Manager (npm)][npm]
-
-  - Additional resources (a.k.a. "You Should Read That"):
-    - [Writing Good Functions][write-functions] (article)
-    - [Design Patterns][design-patterns] (article)
-
-- Git
-
-  - [Git Introduction][git]
-  - [Git Branching][git-branching]
-  - [Collaborating with Git][git-collab]
-
-- Advanced JavaScript
-
-  - [JavaScript ES6 Classes][js-classes]
-  - [Basic Promises][js-prom-basic]
-
-- [Practice][practice]
-
-- [Understanding Web Frameworks][web-frameworks]
-
-- Web Framework Hands-On
-
-  - [Starting with vueJS][vue-intro-course]
-  - [Geographical Libraries][geo-libs]
-  - [Vuejs External Libraries][vue-ext-lib-course]
-  - [RESTful APIs][rest]
-
-- [Vue JS Project Seed][vue-seed]
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date</th>
+      <th>Content</th>
+      <th>Tasks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td><td>19.02</td>
+      <td><ul>
+          <li><a href="./subjects/introduction">Introduction</a></li>
+          <li><a href="./subjects/basic-principles">Code and architectural principles</a></li>
+      </ul></td>
+      <td><ul>
+          <li>Workspace setup</li>
+          <li>Group formation and brainstorming</li>
+      </ul></td>
+    </tr>
+    <tr>
+      <td>2</td><td>26.02</td>
+      <td>
+      Git<ul>
+          <li><a href="./subjects/git">Git Introduction</a></li>
+          <li><a href="./subjects/git-branching">Git Branching</a></li>
+          <li><a href="./subjects/git-collaborating">Collaborating with Git</a></li>
+      </ul></td>
+      <td>Project ideas presentation and validation</td>
+    </tr>
+    <tr>
+      <td>3</td><td>04.03</td>
+      <td>Advanced JS<ul>
+          <li><a href="./subjects/js-modules">Modular JavaScript</a></li>
+          <li><a href="./subjects/npm">Node Package Manager (npm)</a></li>
+          <li><a href="./subjects/js-classes">JavaScript ES6 Classes</a></li>
+          <li><a href="./subjects/js-promises-basics">Basic Promises</a></li>
+      </ul></td>
+      <td><a href="https://github.com/Tazaf/mdt-gio1-practice/">Practice best practices</a></td>
+    </tr>
+    <tr>
+      <td>4</td><td>11.03</td>
+      <td>Web Frameworks<ul>
+          <li><a href="./subjects/web-frameworks">Understanding Web Frameworks</a></li>
+          <li><a href="./subjects/vuejs">Starting with vueJS</a></li>
+      </ul></td>
+      <td><a href="https://github.com/Tazaf/mdt-gio1-vue-seed">VueJS practicing</a></td>
+    </tr>
+    <tr>
+      <td>5</td><td>18.03</td>
+      <td>Web Frameworks<ul>
+          <li><a href="./subjects/rest">RESTful APIs</a></li>
+          <li><a href="./subjects/geolibs">Geographical Libraries</a></li>
+          <li><a href="./subjects/vue-external-libraries">Vuejs External Libraries</a></li>
+      </ul></td>
+      <td>Project!</td>
+    </tr>
+    <tr>
+      <td>6</td><td>25.03</td>
+      <td></td>
+      <td>Project!</td>
+    </tr>
+    <tr>
+      <td>7</td><td>08.04</td>
+      <td></td>
+      <td>Project presentations</td>
+    </tr>
+  </tbody>
+</table>
+<br>
 
 ## Documentation
 
 - [VueJS Introduction][vue-intro]
 - [Leaflet][leaflet]
 - [OpenLayers][openlayers]
-- [Cesium][cesium]
 
 ## Additional Subjects
 
