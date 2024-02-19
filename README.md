@@ -77,18 +77,15 @@ _This course uses subjects from or based on [COMEM+][comem] [architecture & depl
           <li><a href="./subjects/introduction">Introduction</a></li>
           <li><a href="./subjects/basic-principles">Code and architectural principles</a></li>
       </ul></td>
-      <td><ul>
-          <li>Workspace setup</li>
-          <li>Group formation and brainstorming</li>
-      </ul></td>
+      <td>Group formation and brainstorming</td>
     </tr>
     <tr>
       <td>2</td><td>26.02</td>
       <td>
       Git<ul>
-          <li><a href="./subjects/git">Git Introduction</a></li>
-          <li><a href="./subjects/git-branching">Git Branching</a></li>
-          <li><a href="./subjects/git-collaborating">Collaborating with Git</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git/?home=https://tazaf.github.io/heig-mdt-gio1/latest/">Git Introduction</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-branching/?home=https://tazaf.github.io/heig-mdt-gio1/latest/">Git Branching</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-collaborating/?home=https://tazaf.github.io/heig-mdt-gio1/latest/">Collaborating with Git</a></li>
       </ul></td>
       <td>Project ideas presentation and validation</td>
     </tr>

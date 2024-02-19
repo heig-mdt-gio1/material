@@ -13,21 +13,19 @@
 - [Lecturers](#lecturers)
 - [Prerequisite](#prerequisite)
 - [Expectations](#expectations)
+- [Goals](#goals)
 - [Web development?](#web-development)
 - [Logistics](#logistics)
-- [Goals](#goals)
 - [Program](#program)
 - [Group project](#group-project)
-  - [Design a 2D&3D geoportal](#design-a-2d3d-geoportal)
+  - [Design a 2D geoportal](#design-a-2d-geoportal)
   - [Functionalities](#functionalities)
 - [Technologies](#technologies)
-- [Cesium](#cesium)
 - [2D functionality examples](#2d-functionality-examples)
-- [3D functionality examples](#3d-functionality-examples)
-- [Last Year projects](#last-year-projects)
-- [Last Year projects](#last-year-projects-1)
-- [Last Year projects](#last-year-projects-2)
-- [@Todo](#todo)
+- [Previous projects](#previous-projects)
+- [Previous projects](#previous-projects-1)
+- [Previous projects](#previous-projects-2)
+- [Your job today](#your-job-today)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -50,17 +48,6 @@
 - What is your experience? (e.g. programming languages, past experience)
 - What are your expectations?
 
-## Web development?
-
-- Geomatics on the web is increasingly important (e.g. geoportals, interactive deliverables, etc)
-- Front-end is becoming relevant in that regard (increasing processing power on the client)
-- Web apps now can be deployed on mobile devices (e.g. using [Apache Cordova][cordova])
-
-## Logistics
-
-- Communication through Teams?
-- GitHub for code sharing
-
 ## Goals
 
 - Learn to structure code: Code principles, Design patterns, Architectural patterns
@@ -73,6 +60,17 @@
   - *Not just displaying maps*
 
 [cordova]: https://cordova.apache.org/
+
+## Web development?
+
+- Geomatics on the web is increasingly important (e.g. geoportals, interactive deliverables, etc)
+- Front-end is becoming relevant in that regard (increasing processing power on the client)
+- Web apps now can be deployed on mobile devices (e.g. using [Apache Cordova][cordova])
+
+## Logistics
+
+- Communication through Teams?
+- GitHub for code sharing
 
 ## Program
 
@@ -88,7 +86,7 @@
 
 ## Group project
 
-### Design a 2D&3D geoportal
+### Design a 2D geoportal
 
 Example: [geoportail.gouv.fr](https://www.geoportail.gouv.fr)
 

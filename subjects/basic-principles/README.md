@@ -18,20 +18,41 @@ Learn about some basic principles that will help you write cleaner, more organis
   - [_W.E.T._ Illustration](#_wet_-illustration)
     - [Explanation](#explanation)
     - [D.R.Y.er code](#dryer-code)
-    - [Ultimate D.R.Y.](#ultimate-dry)
+    - [Extreme D.R.Y.](#extreme-dry)
   - [Pitfalls and dangers of overD.R.Y.ing](#pitfalls-and-dangers-of-overdrying)
+  - [Examples](#examples)
+    - [Example 1](#example-1)
+    - [Fix](#fix)
+    - [Example 2](#example-2)
+    - [Fix](#fix-1)
+    - [Example 3](#example-3)
+    - [Fix](#fix-2)
+    - [Example 4](#example-4)
+    - [Fix](#fix-3)
 - [K.I.S.S.](#kiss)
-  - [The Art of Naming](#the-art-of-naming)
   - [Do not write code to show off...](#do-not-write-code-to-show-off)
   - [...aim at readability...](#aim-at-readability)
+  - [...aim at readability...](#aim-at-readability-1)
   - [...to a certain extent](#to-a-certain-extent)
+  - [The Art of Naming](#the-art-of-naming)
   - [Take a step back](#take-a-step-back)
+  - [Examples](#examples-1)
+    - [Example 1](#example-1-1)
+    - [Fix](#fix-4)
+    - [Example 2](#example-2-1)
+    - [Fix](#fix-5)
+    - [Example 3](#example-3-1)
+    - [Fix](#fix-6)
+    - [Example 4](#example-4-1)
+    - [Fix](#fix-7)
 - [Y.A.G.N.I.](#yagni)
   - [You can not predicte the future](#you-can-not-predicte-the-future)
+  - [Example](#example)
 - [S.R.P.](#srp)
   - [Omnipotent function (1/2)](#omnipotent-function-12)
   - [Omnipotent function (2/2)](#omnipotent-function-22)
   - [Why?](#why)
+  - [Example](#example-1)
 - [S.O.C.](#soc)
   - [Separate and regroup](#separate-and-regroup)
   - [Layers](#layers)
@@ -133,7 +154,7 @@ The code is now:
 
 What do we think of this?
 
-#### Ultimate D.R.Y.
+#### Extreme D.R.Y.
 
 - It's likely not the only time we'll need to extract initials from a name
 - `extractInitial` is called twice. That's not a problem here, but could become one if the name had more than two parts.
@@ -181,6 +202,143 @@ On this second point, a small note : something to avoid is **early optimization*
 
 > Always try to balance the D.R.Y. principle with **code simplicity** by only implementing what's **currently necessary**. We will explore this further later.
 
+### Examples
+
+#### Example 1
+
+```js
+function addTen(num) {
+    return num + 10;
+}
+
+function addTwenty(num) {
+    return num + 20;
+}
+
+function addThirty(num) {
+    return num + 30;
+}
+```
+
+#### Fix
+
+The logic of adding a number to another is repeated three times. We can extract it in a function:
+
+```js
+function add(num, amount) {
+    return num + amount;
+}
+```
+
+#### Example 2
+
+```js
+button1.addEventListener('click', function() {
+  let element = document.getElementById('myElement');
+  element.style.color = 'red';
+});
+
+button2.addEventListener('click', function() {
+  let element = document.getElementById('myElement');
+  element.style.color = 'blue';
+});
+```
+
+#### Fix
+
+The logic of changing the color of an element is repeated. We can extract it in a function:
+
+```js
+*function changeElementColor(color) {
+*  let element = document.getElementById('myElement');
+*  element.style.color = color;
+*}
+
+button1.addEventListener('click', function() {
+  changeElementColor('red');
+});
+
+button2.addEventListener('click', function() {
+  changeElementColor('blue');
+});
+```
+
+#### Example 3
+
+```js
+function processUser(user) {
+  if (user.age < 18) {
+    throw new Error("User is under 18");
+  }
+  // process user
+}
+
+function updateUser(user) {
+  if (user.age < 18) {
+    throw new Error("User is under 18");
+  }
+  // update user
+}
+```
+
+#### Fix
+
+The logic of checking if the user is under 18 is repeated. We can extract it in a function:
+
+```js
+*function checkUserAge(user) {
+*  if (user.age < 18) {
+*    throw new Error("User is under 18");
+*  }
+*}
+
+function processUser(user) {
+  checkUserAge(user);
+  // process user
+}
+
+function updateUser(user) {
+  checkUserAge(user);
+  // update user
+}
+```
+
+#### Example 4
+
+```js
+function verifyCredentials(username, password) {
+  let user = getUser(username);
+  if (user.password !== password) {
+    throw new Error("Invalid credentials");
+  }
+  let passwordHash = hashPassword(password);
+  if (user.passwordHash !== passwordHash) {
+    throw new Error("Invalid credentials");
+  }
+  return user;
+}
+```
+
+#### Fix
+
+The error message is repeated. We can extract it in a function:
+
+```js
+*const INVALID_CREDENTIALS_ERROR = "Invalid credentials";
+
+function verifyCredentials(username, password) {
+  let user = getUser(username);
+  if (user.password !== password) {
+    throw new Error(`INVALID_CREDENTIALS_ERROR`);
+  }
+  let passwordHash = hashPassword(password);
+  if (user.passwordHash !== passwordHash) {
+    throw new Error(`INVALID_CREDENTIALS_ERROR`);
+  }
+  return user;
+}
+```
+
 ## K.I.S.S.
 
 The second principle we're going to see is K.I.S.S., that stands for
@@ -191,21 +349,6 @@ The idea behind this principle is quite simple itself: **don't make things needl
 
 Although short, this idea requires a little bit of details...
 
-### The Art of Naming
-
-One aspect of K.I.S.S. is to take the time to give **pertinent names** to your code elements.
-
-You could be tempted to just name them `a`, `b`, `c`, `p1`, `fun`, etc. because you just want to get things done.
-
-That's a **wrong trade off** : you will loose time in the end.
-
-Read the same script **one day later**, and track how many minutes you're **losing** trying to remember what this `ccu` variable represents.
-
-Nowadays, all IDEs help you reference existing symbols in your code, so the length doesn't really matter.
-
-**Be descriptive!**\* What the variable is should be immediately obvious. If it contains the currently connected user, then call it `currentlyConnectedUser`, or `currentUser`.
-
-> (\*) Don't fall into the opposite habit, though. `AbstractFlushClearCacheMessageBuilderOnTransactionSupport` is descriptive, sure, but not very practical.
 
 ### Do not write code to show off...
 
@@ -238,6 +381,32 @@ for (let nb = 1; nb <= 100; nb++) {
 
 There's a few more lines, but the structure and the logic are **way more obvious**.
 
+### ...aim at readability...
+
+Another example: putting everything in a single line can become painful to read.
+
+```js
+const isUserAuthorized = user => user && user.isConnected && user.role === "admin" && user.permissions.includes("delete");
+```
+
+> It's not that complex, but it's not that easy to read either.
+
+It is absolutely fine to **create intermediary variables** to make it clearer:
+
+```js
+function isUserConnected(user) {
+  if (!user) {
+    return false;
+  }
+  const isConnected = user.isConnected;
+  const isAdmin = user.role === "admin";
+  const canDelete = user.permissions.includes("delete");
+  return isConnected && isAdmin && canDelete;
+};
+```
+
+> Note how this code documents itself, thanks to the variable names.
+
 ### ...to a certain extent
 
 - **Do use language-specific features**. If people don't understand because they don't know them, they will **learn** the first time they encounter them, and understand them thereafter.
@@ -245,6 +414,22 @@ There's a few more lines, but the structure and the logic are **way more obvious
 - **Don't sacrifice performance** over readability. You can write performant code while still being comprehensible for programmer with general knowledge of the used language.
 
 - **Explain your code** in comments, when you can't make it simpler, and are worried about its readability.
+
+### The Art of Naming
+
+One aspect of K.I.S.S. is to take the time to give **pertinent names** to your code elements.
+
+You could be tempted to just name them `a`, `b`, `c`, `p1`, `fun`, etc. because you just want to get things done.
+
+That's a **wrong trade off** : you will loose time in the end.
+
+Read the same script **one day later**, and track how many minutes you're **losing** trying to remember what this `ccu` variable represents.
+
+Nowadays, all IDEs help you reference existing symbols in your code, so the length doesn't really matter.
+
+**Names are documentation!**\* What the variable is should be immediately obvious. If it contains the currently connected user, then call it `currentlyConnectedUser`, or `currentUser`.
+
+> (\*) Don't fall into the opposite habit, though. `AbstractFlushClearCacheMessageBuilderOnTransactionSupport` is descriptive, sure, but not very practical.
 
 ### Take a step back
 
@@ -258,6 +443,125 @@ In general, K.I.S.S. is about **taking a step back** on what you just did, and a
 
 And if you find yourself changing or modifying your code, **don't hesitate to delete unused code**. It's never lost, with source control like Git.
 
+### Examples
+
+#### Example 1
+
+```js
+function isEven(num) {
+  if (num % 2 === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+```
+
+#### Fix
+
+The `if` statement is not necessary. We can simplify the function:
+
+```js
+function isEven(num) {
+  return num % 2 === 0;
+}
+```
+
+#### Example 2
+
+```js
+function clamp(value, min, max) {
+  return value < min ? min : value > max ? max : value;
+}
+```
+
+#### Fix
+
+The ternary operator is hard to read. We can simplify the function:
+
+```js
+function clamp(value, min, max) {
+  if (value < min) {
+    return min;
+  }
+  if (value > max) {
+    return max;
+  }
+  return value;
+}
+```
+
+#### Example 3
+
+```js
+function containsZero(array) {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === 0) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+
+#### Fix
+
+We're reinventing the wheel. There is a high risk of making a mistake and introducing a bug.
+
+We can simply use the builtin `includes` method:
+
+```js
+function containsZero(array) {
+  return array.includes(0);
+}
+```
+
+#### Example 4
+
+```js
+function capitalizeWords(str) {
+  let result = ""
+  let newWord = true;
+  for (let i = 0; i < str.length; i++) {
+    if (newWord) {
+      result += str[i].toUpperCase();
+      newWord = false;
+    } else {
+      result += str[i];
+    }
+    if (str[i] === " ") {
+      newWord = true;
+    }
+  }
+}
+```
+
+#### Fix
+
+This is uselessly complex. We can simplify the function using the `split` and `join` methods:
+
+```js
+function capitalizeWords(str) {
+  return str.split(" ")
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+}
+```
+
+Or even better, on multiple lines with intermediate variables:
+
+```js
+function capitalizeWords(str) {
+  const words = str.split(" ");
+  for (let i = 0; i < words.length; i++) {
+    const initial = words[i].charAt(0).toUpperCase();
+    const rest = words[i].slice(1);
+    words[i] = initial + rest;
+  }
+  return words.join(" ");
+}
+```
+
 ## Y.A.G.N.I.
 
 The third principle to keep in mind is Y.A.G.N.I., which stands for
@@ -268,23 +572,52 @@ The basis of this principle states that **you should not implement features and 
 
 You should still **design** your code to make it **easily extendable** in the future (using functions, classes, interfaces, etc), but never code **more than you need right now**, even if you feel like it will be useful in the future.
 
-Another less direct benefit is that you can **focus on the current feature** you're implementing, and not be distracted by the **future**.
+Another less direct benefit is that you can **focus on the current feature** you're implementing, and not be distracted by the future.
 
 ### You can not predicte the future
 
 Let's suppose that **you did develop a feature** that is not a current requirement, but you're sure it will soon be.
 
-- Maybe you're right. But that feature will **probably not** have the exact same requirements you **thought it would**, and you'll have to modify the code. If you're lucky, those will be minor changes, but more often than not, it will be a **complete refactoring**, and the time you took in the past to implement the feature will have been wasted.
+- Maybe you're right. But that feature will **probably not** have the exact same requirements you **thought it would**, and you'll have to modify the code.
+
+  If you're lucky, those will be minor changes, but more often than not, it will be a **complete refactoring**, and the time you took in the past to implement the feature will have been wasted.
 
 - Maybe you're wrong: **the code you wrote was never needed**... you'll then have a code base with unused code, making it more difficult to understand. You'll probably forget that it's not used and keep maintaining, optimizing and/or testing it.
 
+### Example
+
+In our earlier D.R.Y. example
+
+```js
+const name = "Dont Repeat Yourself";
+
+console.log(getInitialsFromName(name));
+
+function getInitialsFromName(name) {
+  const parts = name.split(" "); // Split the name
+  let result = ""; // Initialize the final result
+
+  for (const part of parts) {
+    // Loop through each part of the name
+    result += extractInitial(part); // Concatenate the current part's initial
+  }
+  return result;
+}
+
+function extractInitial(word) {
+  return word.charAt(0).toUpperCase() + ".";
+}
+```
+
+If we were not extracting initials anywhere else, creating `getInitialsFromName` was **not necessary**.
+
 ## S.R.P.
 
-This principle is related to how you should design and architecture your code. It means:
+This is related to how you should design and architecture your code. It means:
 
 [**S**ingle **R**esponsibility **P**rinciple][s.r.p.]
 
-The basic definition of this principle states that **a program unit (function, class, etc) should only be responsible of doing one thing**.
+This principle states that **a program unit (function, class, etc) should only be responsible of doing one thing**.
 
 Let's take an example of a feature we'd want to implement in an app:
 
@@ -327,7 +660,7 @@ function displayMarkerOnMapFromWebService() {
 
 ### Omnipotent function (2/2)
 
-Now we have a function that **does everything**: fetch the data from the webservice, create the markers from it, add those marker on the map to display them.
+Our function **does everything**: fetch the data from the webservice, create the markers from it, add those marker on the map to display them.
 
 It doesn't follow the S.R.P., since it is **directly** responsible of executing all those actions.
 
@@ -349,13 +682,13 @@ Each new function called by `displayMarkerOnMapFromWebService` is responsible fo
 
 ### Why?
 
-- Ensuring as much as possible that every function is responsible of one task will allow you to have **a clear model of how the application works**.
+- **Clearer application model**: having each function be responsible of exactly one task will make the **application's logic clearer**.
 
-- It also helps in **writing reusable code** ; you can more easily build a complex logic out of small independant parts than with omnipotent functions like the initial example.
+- **Modularity and reusability**: smaller blocks are more easily reusable. Building a complex logic out of small independant parts is easier than with omnipotent functions like the initial example.
 
-- If there's an **issue** with one of the actions, you know exactly **where to look**.
+- **Easier debugging**: if there's an **issue** with one of the actions, you know exactly **where to look**.
 
-- Should any of those actions' **implementation changes**, you can safely **modify the corresponding function** without having to alter the others.
+- **Safer extendability**: should any of those actions' **implementation change**, you can safely **modify the corresponding function** without having to alter the others.
 
 > Note that, although we only mention functions here, the S.R.P. can be applied to any aspects of the code.
 
@@ -365,51 +698,49 @@ The last principle we'll see is a continuation of the previous one, and means
 
 [**S**eparation **O**f **C**oncerns][soc]
 
-If the Single Responsibility Principle is generally related to how **the low level code is structured** (the small building blocks of a program like functions or classes), the SOC principle is more related to how your **application is architectured**.
+If the Single Responsibility Principle is generally related to how **the low level code is structured** (the small building blocks of a program like functions or classes), the SOC principle is more related to your **whole application's architecture**.
 
 Let's **look at a web application**, for illustration.
 
-The first thing you'll notice as a user is **its user interface**. When you use this interface to perform actions (such as submitting a form), the application will probably **validate** its content, **do something** with it then **save** whatever the result in a permanent way, most likely in a database of some sort.
+The first thing you'll notice as a user is **its user interface**. When you use this interface to perform actions (such as submitting a form), the application will probably **validate** its content, **do something** with it and **save** whatever the result is in a permanent way, most likely in a database of some sort.
 
 This web application will have code somewhere in its code base to perform all those actions.
 
 ### Separate and regroup
 
-Since you now know about the S.R.P., you know that those tasks should be carried out by **separate program unit** (functions, methods, classes, etc). But querying a database, applying business logic and generating a complete user interface would **require many, many different units**.
+According to S.R.P., we want **separate program units** to handle each of those tasks. But **there's a lot of tasks**!
 
-Grouping all **those units in a single place** would not be a good idea, much like it was not a good idea to have one function to do everything. You will need to **separate and group them based on what they do**:
+Grouping them all in a single place would not be a good idea, much like it was not a good idea to have one function to do everything. You will need to **separate and group them based on what they do**:
 
-- All the units that are related to generating or managing a user interface should be grouped together.
-- Same goes for all the units related to managing the data model.
-- The program unit related to the business logic should also be grouped together.
-
-> Those groups of related program unit represents the **layers** of an application.
+- All units related to **managing a user interface** should be grouped together.
+- All units related to **managing the data model** should be grouped together.
+- All units related to **the business logic** should be grouped together.
 
 ### Layers
 
-The layers are an **abstract representation** of how an application is architectured, at an higher level.
+Sometimes, those groups interact in a **layered** fashion, where each layer interacts only with the layers directly above and below it.
 
-**It's abstract because the actual application source code files will not necessarily be organised in the same way**
+Layered archutectures are usually an **asbtract representation** of your app, at a higher level. The actual source code will not necessarily be as explicitly structured.
 
-<!-- slide-column 50 -->
-
-> The previous example with a layer for the user interface, one for the business logic and another for the data, is very similar to a common **architectural pattern** known as MVC ([**M**odel - **V**iew - **C**ontroller][mvc]), used by many web framework such as Laravel, Spring, Ruby on Rails, etc.
-
-<!-- slide-column 50 -->
+<!-- slide-column 30 -->
 
 ![MVC Application](./images/mvc-application.png)
 
+<!-- slide-column 70 -->
+
+> The previous example with a layer for the user interface, one for the business logic and another for the data, is very similar to a common **architectural pattern** known as MVC ([**M**odel - **V**iew - **C**ontroller][mvc]), used by many web framework such as Laravel, Spring, Ruby on Rails, etc.
+
 ### Modularization
 
-How you can group your program unit together is higly dependant on the language your using.
+What are those **groups** of program units? This is highly dependant on the language you're using.
 
-- in PHP, you have the **namespace** mechanism to organise your classes in a hierarchical structure
-- in Java, you have **packages** to achieve the same purpose
-- in Python and JavaScript, you have the **modules** mechanism (which is what we'll dig into later)
+- in PHP, a **namespace** mechanism organizes your classes hierarchically
+- in Java, **packages** serve the same purpose
+- in Python and JavaScript, it's **modules** (which is what we'll dig into later)
 
-Using any of those mechanism allows you to **design your application** following the S.O.P. principle.
+Using any of those mechanisms allows you to **design your application** following the S.O.C. principle.
 
-The **benefits** of doing so are very much the same than for the S.R.P., although to the **application level**, more than the code level.
+You can think of S.O.C. as the **application level** version of S.R.P.; their benefits are very similar, only at different levels.
 
 ## Resources
 
