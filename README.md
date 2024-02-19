@@ -18,6 +18,10 @@
 
 ## Logistics
 
+### Communication
+
+All communication will be done through Teams [here](https://teams.microsoft.com/l/team/19%3AIeFWjAZMGUF8rIc30XKlW05HiCMpqEPlCEIfiVZe9EY1%40thread.tacv2/conversations?groupId=e9b6a83e-27c7-4e53-8a3c-4b3ba0a4c879&tenantId=a372f724-c0b2-4ea0-abfb-0eb8c6f84e40). You can also send me or Jens a private message on Teams or an email if you prefer.
+
 ### Course objectives
 
 The goal of this course is to discover concepts and tools to organize the front-end side of a web application and enrich the user interface/experience according to current good practices.
