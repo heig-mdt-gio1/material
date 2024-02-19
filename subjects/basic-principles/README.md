@@ -720,7 +720,7 @@ Grouping them all in a single place would not be a good idea, much like it was n
 
 Sometimes, those groups interact in a **layered** fashion, where each layer interacts only with the layers directly above and below it.
 
-Layered archutectures are usually an **asbtract representation** of your app, at a higher level. The actual source code will not necessarily be as explicitly structured.
+Layered architectures are usually an **asbtract representation** of your app, at a higher level. The actual source code will not necessarily be as explicitly structured.
 
 <!-- slide-column 30 -->
 
