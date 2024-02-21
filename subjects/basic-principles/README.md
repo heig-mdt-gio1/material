@@ -328,7 +328,7 @@ The error message is repeated. We can extract it in a function:
 
 function verifyCredentials(username, password) {
   let user = getUser(username);
-  if (user.password !== password) {
+  if (!user) {
     throw new Error(`INVALID_CREDENTIALS_ERROR`);
   }
   let passwordHash = hashPassword(password);
