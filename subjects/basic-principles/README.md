@@ -742,6 +742,14 @@ Using any of those mechanisms allows you to **design your application** followin
 
 You can think of S.O.C. as the **application level** version of S.R.P.; their benefits are very similar, only at different levels.
 
+## Summary
+
+- **D.R.Y.**: Same logic ? Share the code.
+- **K.I.S.S.**: Take a step back: there's probably simpler.
+- **Y.A.G.N.I.**: Think about the future, but don't code for it yet.
+- **S.R.P.**: One program unit = one responsibility.
+- **S.O.C.**: Group program units by themes with strictly defined interactions.
+
 ## Resources
 
 - [The D.R.Y. Principle: Benefits and Costs with Examples][d.r.y.-in-depth] - In-depth analysis of the D.R.Y. principle
