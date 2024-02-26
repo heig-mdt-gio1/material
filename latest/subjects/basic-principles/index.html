@@ -3,7 +3,7 @@
   <head>
     <title>Code and architecture principles (Master Développement Territorial | Géoinformatique opérationnelle : Développement avancé d’outils)</title>
     <meta charset='utf-8'>
-    <meta name='config' content='{&quot;basePath&quot;:&quot;../..&quot;,&quot;remark&quot;:{&quot;highlightLines&quot;:true,&quot;highlightSpans&quot;:true,&quot;countIncrementalSlides&quot;:false,&quot;navigation&quot;:{&quot;click&quot;:false,&quot;scroll&quot;:false,&quot;touch&quot;:true}},&quot;subjectUrl&quot;:&quot;https://github.com/heig-mdt-gio1/material/tree/e9ca7574db71685a3be1ac5e509af250cc87f00c/subjects/basic-principles/README.md&quot;}'>
+    <meta name='config' content='{&quot;basePath&quot;:&quot;../..&quot;,&quot;remark&quot;:{&quot;highlightLines&quot;:true,&quot;highlightSpans&quot;:true,&quot;countIncrementalSlides&quot;:false,&quot;navigation&quot;:{&quot;click&quot;:false,&quot;scroll&quot;:false,&quot;touch&quot;:true}},&quot;subjectUrl&quot;:&quot;https://github.com/heig-mdt-gio1/material/tree/f9c4bdd65a40cb46946aa57e5d77ef4b63114d27/subjects/basic-principles/README.md&quot;}'>
   </head>
   <body>
     <textarea id='source'>
@@ -341,7 +341,7 @@ The error message is repeated. We can extract it in a function:
 
 function verifyCredentials(username, password) {
   let user = getUser(username);
-  if (user.password !== password) {
+  if (!user) {
     throw new Error(`INVALID_CREDENTIALS_ERROR`);
   }
   let passwordHash = hashPassword(password);
@@ -839,6 +839,17 @@ What are those **groups** of program units? This is highly dependant on the lang
 Using any of those mechanisms allows you to **design your application** following the S.O.C. principle.
 
 You can think of S.O.C. as the **application level** version of S.R.P.; their benefits are very similar, only at different levels.
+
+---
+## Summary
+
+.breadcrumbs[<a href="#1">Code and architecture principles</a>]
+
+- **D.R.Y.**: Same logic ? Share the code.
+- **K.I.S.S.**: Take a step back: there's probably simpler.
+- **Y.A.G.N.I.**: Think about the future, but don't code for it yet.
+- **S.R.P.**: One program unit = one responsibility.
+- **S.O.C.**: Group program units by themes with strictly defined interactions.
 
 ---
 ## Resources
