@@ -87,19 +87,19 @@ _This course uses subjects from or based on [COMEM+][comem] [architecture & depl
       <td>2</td><td>26.02</td>
       <td>
       Git<ul>
-          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git/?home=https://tazaf.github.io/heig-mdt-gio1/latest/">Git Introduction</a></li>
-          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-branching/?home=https://tazaf.github.io/heig-mdt-gio1/latest/">Git Branching</a></li>
-          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-collaborating/?home=https://tazaf.github.io/heig-mdt-gio1/latest/">Collaborating with Git</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git/?home=https://heig-mdt-gio1.github.io/material/latest/">Git Introduction</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-branching/?home=https://heig-mdt-gio1.github.io/material/latest/">Git Branching</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-collaborating/?home=https://heig-mdt-gio1.github.io/material/latest/">Collaborating with Git</a></li>
       </ul></td>
       <td>Project ideas presentation and validation</td>
     </tr>
     <tr>
       <td>3</td><td>04.03</td>
       <td>Advanced JS<ul>
-          <li><a href="./subjects/js-modules">Modular JavaScript</a></li>
-          <li><a href="./subjects/npm">Node Package Manager (npm)</a></li>
-          <li><a href="./subjects/js-classes">JavaScript ES6 Classes</a></li>
-          <li><a href="./subjects/js-promises-basics">Basic Promises</a></li>
+          <li><a href="https://mediacomem.github.io/comem-devmobil/latest/subjects/js-modules/?home=https://heig-mdt-gio1.github.io/material/latest/">Modular JavaScript</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archioweb/2019-2020/subjects/npm/?home=https://heig-mdt-gio1.github.io/material/latest/">Node Package Manager (npm)</a></li>
+          <li><a href="https://mediacomem.github.io/comem-devmobil/latest/subjects/js-classes/?home=https://heig-mdt-gio1.github.io/material/latest/">JavaScript ES6 Classes</a></li>
+          <li><a href="https://mediacomem.github.io/comem-devmobil/latest/subjects/js-promises-basics/?home=https://heig-mdt-gio1.github.io/material/latest/">Basic Promises</a></li>
       </ul></td>
       <td><a href="https://github.com/Tazaf/mdt-gio1-practice/">Practice best practices</a></td>
     </tr>
@@ -114,7 +114,7 @@ _This course uses subjects from or based on [COMEM+][comem] [architecture & depl
     <tr>
       <td>5</td><td>18.03</td>
       <td>Web Frameworks<ul>
-          <li><a href="./subjects/rest">RESTful APIs</a></li>
+          <li><a href="https://mediacomem.github.io/comem-archioweb/latest/subjects/rest/?home=https://heig-mdt-gio1.github.io/material/latest/">RESTful APIs</a></li>
           <li><a href="./subjects/geolibs">Geographical Libraries</a></li>
           <li><a href="./subjects/vue-external-libraries">Vuejs External Libraries</a></li>
       </ul></td>
