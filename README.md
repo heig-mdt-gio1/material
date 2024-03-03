@@ -7,6 +7,7 @@
 
 
 - [Logistics](#logistics)
+  - [Communication](#communication)
   - [Course objectives](#course-objectives)
   - [Prerequisite](#prerequisite)
   - [Evaluation](#evaluation)
@@ -101,7 +102,7 @@ _This course uses subjects from or based on [COMEM+][comem] [architecture & depl
           <li><a href="https://mediacomem.github.io/comem-devmobil/latest/subjects/js-classes/?home=https://heig-mdt-gio1.github.io/material/latest/">JavaScript ES6 Classes</a></li>
           <li><a href="https://mediacomem.github.io/comem-devmobil/latest/subjects/js-promises-basics/?home=https://heig-mdt-gio1.github.io/material/latest/">Basic Promises</a></li>
       </ul></td>
-      <td><a href="https://github.com/Tazaf/mdt-gio1-practice/">Practice best practices</a></td>
+      <td><a href="https://github.com/heig-mdt-gio1/mdt-gio1-practice">Practice best practices</a></td>
     </tr>
     <tr>
       <td>4</td><td>11.03</td>

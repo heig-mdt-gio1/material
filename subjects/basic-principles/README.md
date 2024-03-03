@@ -52,11 +52,11 @@ Learn about some basic principles that will help you write cleaner, more organis
   - [Omnipotent function (1/2)](#omnipotent-function-12)
   - [Omnipotent function (2/2)](#omnipotent-function-22)
   - [Why?](#why)
-  - [Example](#example-1)
 - [S.O.C.](#soc)
   - [Separate and regroup](#separate-and-regroup)
   - [Layers](#layers)
   - [Modularization](#modularization)
+- [Summary](#summary)
 - [Resources](#resources)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->

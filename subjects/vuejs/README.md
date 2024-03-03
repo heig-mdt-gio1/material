@@ -13,7 +13,6 @@
 - [Getting started with vue-cli](#getting-started-with-vue-cli)
 - [Create your first vue.js 3.0 project](#create-your-first-vuejs-30-project)
 - [Welcome :) !!](#welcome--)
-- [TODO](#todo)
 - [Declarative Rendering](#declarative-rendering)
 - [Deep Dive Within Vue.js Directives](#deep-dive-within-vuejs-directives)
 - [Conditional rendering with _v-if_](#conditional-rendering-with-_v-if_)
