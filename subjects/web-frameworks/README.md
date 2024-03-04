@@ -12,16 +12,24 @@ Learn what web frameworks are and how they are useful when developping a web app
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-  - [Traditional Client/Server architecture](#traditional-clientserver-architecture)
-  - [Traditionnal Browsing Experience](#traditionnal-browsing-experience)
-    - [Server Frameworks](#server-frameworks)
-    - [Sidenote: About Frameworks](#sidenote-about-frameworks)
-  - [JavaScript Incoming](#javascript-incoming)
-  - [Single Page Application](#single-page-application)
-  - [Architectural Chaos](#architectural-chaos)
-  - [Architectural Patterns](#architectural-patterns)
-  - [The Contenders Are...](#the-contenders-are)
+- [Traditional Client/Server architecture](#traditional-clientserver-architecture)
+- [Traditionnal Browsing Experience](#traditionnal-browsing-experience)
+  - [Server Frameworks](#server-frameworks)
+  - [Sidenote: About Frameworks](#sidenote-about-frameworks)
+- [JavaScript Incoming](#javascript-incoming)
+- [Single Page Application](#single-page-application)
+- [Architectural Chaos](#architectural-chaos)
+- [Architectural Patterns](#architectural-patterns)
+- [The Contenders Are...](#the-contenders-are)
 - [Declarative frameworks](#declarative-frameworks)
+- [Component-based frameworks](#component-based-frameworks)
+  - [What is a component?](#what-is-a-component)
+  - [Example - Building a Todo App](#example---building-a-todo-app)
+  - [Example - Building a Todo App (2)](#example---building-a-todo-app-2)
+  - [Example - Building a Todo App (3)](#example---building-a-todo-app-3)
+  - [Example - Building a Todo App (4)](#example---building-a-todo-app-4)
+  - [Example - Todo App flow](#example---todo-app-flow)
+  - [Example - Todo App - Responsibilities](#example---todo-app---responsibilities)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -130,7 +138,7 @@ Then, little by little, things started to settle down, the ecosystem matured (th
 
 ## Architectural Patterns
 
-On of those is the architectural pattern called MVVM, for:
+One of those is the architectural pattern called MVVM, for:
 
 "**M**odel - **V**iew - **V**iew**M**odel"
 
@@ -201,7 +209,7 @@ A component is usually defined by
 - **properties**, i.e. data provided by the parent component
 - a **template**, describing how all of this comes together visually
 
-It is usually also able to sent information to its parent, through **callbacks**.
+It is usually also able to send information to its parent, through **callbacks**.
 
 <p align="center">
   <img src='images/component.png' width='100%' />
