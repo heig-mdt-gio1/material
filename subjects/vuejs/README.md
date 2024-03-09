@@ -9,46 +9,63 @@
 - [What Is Vue.js?](#what-is-vuejs)
 - [Why begin with Vue.js?](#why-begin-with-vuejs)
 - [Key Characteristics](#key-characteristics)
-- [Let's start coding with Vue.js !](#lets-start-coding-with-vuejs-)
+- [Let's learn VueJS!](#lets-learn-vuejs)
 - [Getting started with vue-cli](#getting-started-with-vue-cli)
 - [Create your first vue.js 3.0 project](#create-your-first-vuejs-30-project)
-- [Welcome :) !!](#welcome--)
-- [Declarative Rendering](#declarative-rendering)
-- [Deep Dive Within Vue.js Directives](#deep-dive-within-vuejs-directives)
-- [Conditional rendering with _v-if_](#conditional-rendering-with-_v-if_)
-  - [In basic HTML/JS](#in-basic-htmljs)
-  - [In Vue.js](#in-vuejs)
-- [List rendering with _v-for_](#list-rendering-with-_v-for_)
-  - [In basic HTML/JS](#in-basic-htmljs-1)
-  - [In Vue.js](#in-vuejs-1)
-  - [How to add an element dynamically to this list?](#how-to-add-an-element-dynamically-to-this-list)
-- [Form input bindings with _v-model_](#form-input-bindings-with-_v-model_)
-  - [In basic HTML/JS](#in-basic-htmljs-2)
-  - [/// In Vue.js](#-in-vuejs)
-- [Data binding with _v-bind_](#data-binding-with-_v-bind_)
-  - [/// In basic HTML/JS](#-in-basic-htmljs)
-  - [/// In Vue.js](#-in-vuejs-1)
-- [Event handeling with _v-on_](#event-handeling-with-_v-on_)
-  - [/// In basic HTML/JS](#-in-basic-htmljs-1)
-  - [/// In Vue.js](#-in-vuejs-2)
-- [Summary Vue.js Directives](#summary-vuejs-directives)
-- [Components in Vue.js](#components-in-vuejs)
-- [What is a component and why should I care?](#what-is-a-component-and-why-should-i-care)
-- [Thinking in components](#thinking-in-components)
-- [Component Architecture](#component-architecture)
-- [Component Example: step by step](#component-example-step-by-step)
-- [Lifecycle](#lifecycle)
-- [Components Communication in vue.js](#components-communication-in-vuejs)
-- [Communication Parent -> Child: The Props](#communication-parent---child-the-props)
-  - [/// Parent](#-parent)
-  - [/// Child](#-child)
-- [Communication Child -> Parent: Custom Events](#communication-child---parent-custom-events)
-  - [/// Child](#-child-1)
-  - [/// Parent](#-parent-1)
+- [Your first project!](#your-first-project)
+- [Basic structures of a Vue.js project](#basic-structures-of-a-vuejs-project)
+  - [`public` directory and `index.html`](#public-directory-and-indexhtml)
+  - [`src` directory](#src-directory)
+  - [Component files](#component-files)
+    - [`template` section](#template-section)
+    - [`script` section](#script-section)
+      - [Component description object](#component-description-object)
+    - [`style` section](#style-section)
+  - [`main.js` file](#mainjs-file)
+- [Dynamic Rendering](#dynamic-rendering)
+  - [Dynamic data](#dynamic-data)
+  - [Text Interpolation](#text-interpolation)
+  - [Directives](#directives)
+    - [Shorthand notations](#shorthand-notations)
+- [Back to our project](#back-to-our-project)
+  - [Create a new component](#create-a-new-component)
+    - [Display our new component](#display-our-new-component)
+    - [Our counter's state](#our-counters-state)
+    - [Incrementing the count](#incrementing-the-count)
+    - [Using methods](#using-methods)
+    - [Separate state](#separate-state)
+    - [Taking a prop on the counter](#taking-a-prop-on-the-counter)
+    - [Using the prop in the counter](#using-the-prop-in-the-counter)
+    - [Passing the prop from the parent](#passing-the-prop-from-the-parent)
+- [Dynamic Rendering](#dynamic-rendering-1)
+  - [More directives : `v-for`](#more-directives--v-for)
+    - [Specifying a key](#specifying-a-key)
+  - [More directives : `v-model`](#more-directives--v-model)
+- [Back to our project](#back-to-our-project-1)
+  - [What we need](#what-we-need)
+  - [The task component](#the-task-component)
+  - [The list of tasks](#the-list-of-tasks)
+    - [The list of tasks's whole file](#the-list-of-taskss-whole-file)
+  - [The input to add a task](#the-input-to-add-a-task)
+    - [The input component's whole file](#the-input-components-whole-file)
+    - [Adding the input to the list](#adding-the-input-to-the-list)
+- [Events](#events)
+  - [Event emission](#event-emission)
+  - [Event listening](#event-listening)
+  - [Adding tasks](#adding-tasks)
+  - [Completing a task](#completing-a-task)
+  - [Removing completed tasks](#removing-completed-tasks)
+- [Final VueJS features](#final-vuejs-features)
+  - [Lifecycle hooks](#lifecycle-hooks)
+  - [The `this` keyword](#the-this-keyword)
+  - [Slots (a.k.a. children)](#slots-aka-children)
+- [Let's finish that to-do list](#lets-finish-that-to-do-list)
+  - [Preventing empty tasks](#preventing-empty-tasks)
+  - [Using the error popup](#using-the-error-popup)
+  - [Showing the error popup](#showing-the-error-popup)
+  - [Hiding the popup](#hiding-the-popup)
+- [Full result: To-Do List](#full-result-to-do-list)
 - [Cheat Sheet Components](#cheat-sheet-components)
-- [Full example: To-Do List](#full-example-to-do-list)
-- [\* _Bamf_ \* Teleport (new feature Vuejs 3.0)](#%5C-_bamf_-%5C-teleport-new-feature-vuejs-30)
-  - [/// In Vue.js](#-in-vuejs-3)
 - [Some Best Practices](#some-best-practices)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -77,7 +94,7 @@
 
 [Source][vue-characteristics]
 
-## Let's start coding with Vue.js !
+## Let's learn VueJS!
 
 <!-- slide-front-matter class: center, middle -->
 
@@ -90,6 +107,18 @@ npm install -g @vue/cli
 ```
 
 _Vue-CLI allows you to start up a vue.js 3.0 easily and rapidly._
+
+Note : Vue can also be used without the CLI by including the Vue library in your HTML file.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+```
+
+However, using the CLI is useful because
+- it provides a standard project structure
+- it provides a development server with hot reload
+- it allows using `.vue` files (SFC)
+- it allows you to build your project for production (minification, etc.)
 
 ## Create your first vue.js 3.0 project
 
@@ -115,465 +144,1093 @@ cd your_project_name
 npm run serve
 ```
 
-## Welcome :) !!
+## Your first project!
 
 <p align="center">
   <img src='./images/vue-launch.png' class='w50' />
 </p>
 
-**Let's check the code !**
+_Let's figure out what's going on._
 
-## Declarative Rendering
+## Basic structures of a Vue.js project
 
-The declarative rendering enables to declaratively render data to the DOM !
+```
+your_project_name
+├── public
+│   ├── ...
+│   └── index.html
+├── src
+│   ├── assets
+│   │   └── logo.png
+│   ├── components
+│   │   └── HelloWorld.vue
+│   ├── App.vue
+│   └── main.js
+├── .gitignore
+└── ...
+```
 
-<u>Syntax</u>: `{{ <expression> }}`
+### `public` directory and `index.html`
+
+```
+your_project_name
+*├── public
+*│   ├── ...
+*│   └── index.html
+├── src
+│   └── ...
+└── ...
+```
+
+Contains anything that must be served as is (e.g. `index.html`).
+
+The `index.html` file is the main HTML file served when your app is run. It contains a special `div` with id `#app` that will be the root of your Vue app.
 
 ```html
-[HTML]
-<div id="counter">Counter: {{ counter }}</div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- ... the usual stuff ... -->
+  </head>
+  <body>
+    `<div id="app"></div>`
+  &lt;/body&gt;
+</html>
 ```
 
-```js
-[JS];
-export default {
-  data: () => {
-    counter: 0;
-  }
-};
+### `src` directory
+
+```
+your_project_name
+├── public
+│   └── ...
+├── src
+*│   ├── assets
+*│   │   └── logo.png
+*│   ├── components
+*│   │   └── HelloWorld.vue
+*│   ├── App.vue
+*│   └── main.js
+└── ...
 ```
 
-## Deep Dive Within Vue.js Directives
+- `assets`: contains static assets used by components like images, fonts, etc.
+- `components`: contains all Vue components used in the app.
+- `App.vue`: the root component of the app.
+- `main.js`: the JS code that sets up the app.
 
-<!-- slide-front-matter class: center, middle -->
+### Component files
 
-## Conditional rendering with _v-if_
+VueJS has two types of components: **single file components** (SFC) and **functional components**. We will use SFC in this tutorial, as they are the easiest to reason about.
 
-The directive `v-if` is used to conditionally render a block. The block will only be rendered if the directive's expression returns a value: `True`
+A SFC is a single `.vue` file composed of three parts
 
-[Link to the documentation][vue-doc-if]
-
-### In basic HTML/JS
-
-```html
-[HTML]
-<span id="span1" display="block">Hello</span>
-<span id="span2" display="block">World !</span>
-```
-
-```js
-[JS];
-const conditional_expression = false;
-if (conditional_expression) {
-  document.getElementById("span1").style.display = "block";
-  document.getElementById("span2").style.display = "none";
-} else {
-  document.getElementById("span1").style.display = "none";
-  document.getElementById("span2").style.display = "block";
-}
-```
-
-> An important note here: the blocks are only hidden using the CSS style `display` property. This means that each blocks are still present in the DOM.
-
-### In Vue.js
-
-```html
-[HTML]
-<span v-if="conditional_expression">Hello</span>
-<span v-else>World !</span>
-```
-
-```js
-[JS];
-export default {
-  data: () => {
-    conditional_expression: false;
-  }
-};
-```
-
-> Using `v-if`, VueJS will remove the element from the DOM entirely if the condition is falsy.
-
-## List rendering with _v-for_
-
-The directive `v-for` is used to render a list of items based on an collection.
-
-The `v-for` directive requires a special syntax in the form of `<element> of <collection>`, where `<collection>` is the source collection from your component and `<element>` is a **template variable** that will contain the current element from the collection being iterated on.
-
-To better predict how exactly the DOM will be rendered you need to use the `v-bind:key` attribute.
-
-[Link to the documentation][vue-doc-for]
-
-### In basic HTML/JS
-
-```html
-[HTML]
-<ul id="myfruits-list">
-  <!-- Element will be created inside this list -->
-</ul>
-```
-
-```js
-[JS];
-const fruits = ["Apple", "Kiwi", "Orange"];
-const list = document.getElementById("myfruits-list");
-
-for (const fruits of fruits) {
-  const liEle = document.createElement("li");
-  liEle.innerText = fruit;
-  list.appendChild(liEle);
-}
-```
-
-### In Vue.js
-
-```html
-[HTML]
-<ul id="myfruits-list">
-  <li v-for="fruit in fruits" :key="fruit"></li>
-</ul>
-```
-
-```js
-[JS];
-export default {
-  data: () => {
-    fruits: ["Apple", "Kiwi", "Orange"];
-  }
-};
-```
-
-### How to add an element dynamically to this list?
-
-**In basic JS**
-
-```js
-let ul = document.getElementById("myfruits-list");
-let li = document.createElement("li");
-li.innerText = "Pienapple";
-ul.appendChild(li);
-```
-
-**In Vue.js**
-
-```js
-// Just call this somewhere in your methods
-fruits.push("Pineapple");
-```
-
-## Form input bindings with _v-model_
-
-The directive `v-model` is used to create two-way bindings on form input, textarea, and select elements. It automatically picks the correct way to update the element based on the input type.
-
-[Link to the documentation][vue-doc-model]
-
-### In basic HTML/JS
-
-```html
-[HTML]
-<p id="my-message">your text is...</p>
-<input name="input-message" />
-```
-
-```js
-[JS];
-const input = document.querySelector("input")[0];
-const log = document.getElementById("my-message");
-
-input.addEventListener("input", updateValue);
-
-function updateValue(e) {
-  log.textContent = e.target.value;
-}
-```
-
-> \* type _Hello MDT-GIO-1_ in input \*
-
-> \>> mymessage = "Hello MDT-GIO-1!"
-
-### /// In Vue.js
-
-```html
-[HTML]
-<p>{{ mymessage }}</p>
-<input v-model="mymessage" />
-```
-
-```js
-[JS];
-export default {
-  data: () => {
-    mymessage = "your text is...";
-  }
-};
-```
-
-> \* type _Hello MDT-GIO-1_ in input \*
-
-> \>> mymessage = "Hello MDT-GIO-1!"
-
-## Data binding with _v-bind_
-
-The directive `v-bind` is used to dynamically bind one (or more) attributes, or a component prop to an expression.
-When used to bind the `class` or `style` attribute, it supports additional value types such as Array or Objects.
-
-<sup>[**Link to the documentation: class binding**][vue-doc-bindclass]</sup>
-
-When used for prop binding, the prop must be properly declared in the child component.
-
-<sup>[**Link to the documentation: prop binding**][vue-doc-bindprop]</sup>
-
-### /// In basic HTML/JS
-
-```html
-[HTML]
-<p id="my-text" class="text-right">This is the magic text</p>
-```
-
-```js
-[JS];
-let letext = document.getElementById("my-text");
-letext.classList.remove("text-right");
-letext.classList.add("text-center");
-```
-
-```css
-[CSS] .text-center {
-  text-align: center;
-}
-.text-right {
-  text-align: right;
-}
-```
-
-> \>> <p style='text-align:center'>This is the magic text</p>
-
-### /// In Vue.js
-
-```html
-[HTML]
-<div v-bind:class="iscenter?'text-center':'text-right'">
-  This is the magic text
-</div>
-```
-
-```js
-[JS];
-let iscenter = true;
-```
-
-```css
-[CSS] .text-center {
-  text-align: center;
-}
-.text-right {
-  text-align: right;
-}
-```
-
-> \>> <p style='text-align:center'>This is the magic text</p>
-
-## Event handeling with _v-on_
-
-The directive `v-on` is used to listen to DOM events and run some JavaScript when they're triggered.
-
-<u>Shorthand</u>: `@`
-
-<sup>[**Link to the documentation**][vue-doc-event]</sup>
-
-### /// In basic HTML/JS
-
-```html
-[HTML]
-<button onclick="addonetocounter()">Add 1</button>
-<p id="my-counter">0</p>
-```
-
-```js
-[JS];
-let countervalue = 0;
-function addonetocounter() {
-  countervalue++;
-  document.getElementById("my-counter").innerHTML = countervalue;
-}
-```
-
-> \* Click _Add 1_ \*
-
-> \>> counter = 1
-
-### /// In Vue.js
-
-```html
-[HTML]
-<button v-on:click="mycounter += 1">Add 1</button>
-<p>{{ mycounter }}</p>
-```
-
-```js
-[JS];
-let mycounter = 0;
-```
-
-> \* Click _Add 1_ \*
-
-> \>> counter = 1
-
-## Summary Vue.js Directives
-
-- `v-if`: Conditional rendering
-- `v-for`: List rendering
-- `v-model`: Form input bindings
-- `v-bind`: Data binding
-- `v-on`: Event handeling
-
-## Components in Vue.js
-
-<!-- slide-front-matter class: center, middle -->
-
-## What is a component and why should I care?
-
-Components are reusable instances with a name. We can use components as a custom element inside a root instance. They can have different size from a full page to a button.
-
-There is a several way to declare a component (basic, inline, functional, single file), in this class we will use single file components because it is the most versatile.
-
-<sup>[**Link to the documentation**][vue-doc-cpt]</sup>
-
-<br>
-**Let's check out our started up project to understand what does it mean.**
-
-## Thinking in components
-
-<p align="center">
-  <img src='https://i.stack.imgur.com/WRZip.png' class='w90' />
-</p>
-<sup>[**Source**][cpt-composition]</sup>
-
-## Component Architecture
-
-![vue-component-structure](https://snipcart.com/media/204745/vue-component-structure.png)<sup>[**Source**][cpt-architecture-img]</sup>
-
-[**An Example To Check Out!**][cpt-example]
-
-## Component Example: step by step
-
-<!-- slide-front-matter class: center, middle -->
-
-[**Vue Component**][cpt-step-by-step]
-
-## Lifecycle
-
-<p align="center">
-  <img src='https://v3.vuejs.org/images/lifecycle.png' class='w40' />
-</p>
-<sup>[**Source**][vue-hooks]</sup>
-
-## Components Communication in vue.js
-
-"_Blabla?_" said The Parent Component _\* <u>pass props</u> \*_,
-
-"_Bla..._" answered The Child Component _\* <u>send event</u> \*_.
-
-<br>
-<p align="center">
-  <img src='https://learnvue.co/wp-content/uploads/2020/08/20200825-Props-1024x576.png' class='w60' />
-</p>
-<sup>[**Source**][vue-cpt-communication]</sup>
-
-## Communication Parent -> Child: The Props
-
-Props are custom attributes registered on a component. When a value is passed to a prop attribute, it becomes a property on that component instance.
-
-<sup>[**Link to the documentation**][vue-cpt-props]</sup>
-
-### /// Parent
-
-```html
-[Template Parent]
+```vue
 <template>
-  <!-- Declare my component in the parent and add the bind value that you want to transmit -->
-  <TheComponent :myprop-value="Cookie"></TheComponent>
+  <!-- HTML representation of the component -->
 </template>
-<script>
-  import TheComponent from "./cpt/thecomponent.vue"; // name - pathway of the component
 
+<script>
   export default {
-    components: {
-      TheComponent // declaration of the component
-    }
+    // JS code describing the component
   };
 </script>
+
+<style>
+  /* CSS code for that component */
+</style>
 ```
 
-### /// Child
+#### `template` section
 
-```html
-[Template Child]
+Contains (almost-)standard HTML code, representing the component's UI.
+
+```vue
 <template>
-  <p>I want my {{mypropValue}}!</p>
+  <div>
+    `<h1>{{ msg }}</h1>`
+
+    <img `v-if="shouldShowImage"` alt="Vue logo" src="./assets/logo.png" />
+    
+    `<MyVueComponent my-title="Hello World!" />`
+  </div>
 </template>
+```
+
+Non-HTML syntax is introduced by Vue to describe dynamic parts of the component, like
+- `{{ msg }}` for inserting dynamic data,
+- `v-if` for rendering on a given condition,
+- `<MyVueComponent ...>` for rendering other components.
+
+We will cover all these and more in the next slides.
+
+#### `script` section
+
+Contains
+- all necessary imports (such as other components)
+- the component's description (name, props, data, methods, etc.)
+
+```vue
 <script>
+  import MyOtherComponent from "./MyOtherComponent.vue";
+
   export default {
-    name: "TheComponent", // name of the component
+    name: "HelloWorld",
     props: {
-      mypropValue: {
-        type: String, // Number, Boolean, Array, Object, Function, Promise
-        required: true
-        //default: default value
-        //validator
-      }
-    }
-  };
-</script>
-```
-
-## Communication Child -> Parent: Custom Events
-
-Custom event are used to signal from a child component to notify a parent component that an event has taken place.
-
-<sup>[**Link to the documentation**][vue-cpt-event]</sup>
-
-[**Further reading on custom event**][cpt-event-example]
-
-### /// Child
-
-```html
-[Template Child]
-<button @click="sayhi">Says hi from component!</button>
-<script>
-  export default {
-    emits: ["hello-stranger"], // declare all emit events, optional but highly recommended !
-    methods: {
-      sayhi() {
-        this.$emit("hello-stranger" /*some data*/); // emit event: "hello-stranger"
-      }
-    }
-  };
-</script>
-```
-
-### /// Parent
-
-```html
-[Template Parent]
-<!-- Declare my component in the parent and add the event listerner -->
-<TheComponent @hello-stranger="someonesayshi"></TheComponent>
-
-<script>
-  import TheComponent from "./cpt/thecomponent.vue"; // name - pathway of the component
-
-  export default {
+      msg: String,
+      shouldShowImage: Boolean
+    },
     components: {
-      TheComponent // declaration of the component
+      MyVueComponent
+    },
+  };
+</script>
+```
+
+Let's look at this component description in detail.
+
+##### Component description object
+
+```js
+export default {
+  `// Lists the accepted props, with type and optional default value`
+  props: {
+    title: String,
+    // ...
+  },
+  `// Returns initial value of component's state`
+  data() {
+    return {
+      isEnabled: true,
+      hasError: false,
+      // ...
+    };
+  },
+  `// Lists all components used as children`
+  components: {
+    MyOtherComponent
+  },
+  `// Lists all methods that can be used by the component`
+  methods: {
+    toggleEnabled() {
+      this.isEnabled = !this.isEnabled;
+    },
+    // ...
+  }
+}
+```
+
+#### `style` section
+
+Contains any CSS that should apply only to this component.
+
+```vue
+<style>
+  h1 {
+    color: red;
+  }
+</style>
+```
+
+In these slides, we will mostly ignore the `style` section, as it is not specific to VueJS. You can add styling as like throughout the course.
+
+### `main.js` file
+
+Located in the `src` directory, this file is the entry point of the app. It is responsible for
+
+- importing Vue and the root component,
+- creating a new Vue instance with the root component.
+- mounting the Vue instance to the `#app` div in `index.html`.
+
+```js
+import { createApp } from "vue";
+
+// Import the root component we defined
+import App from "./App.vue";
+
+// Create a new Vue instance with the root component
+const app = createApp(App)
+
+// Place that instance in the #app div in index.html
+app.mount("#app");
+```
+
+## Dynamic Rendering
+
+The strength of VueJS
+
+How to describe dynamic content?
+
+<!-- slide-front-matter class: center, middle -->
+
+### Dynamic data
+
+What do we mean by dynamic data?
+
+*Anything that can change over time.*
+
+- Props passed by the parent (if parent changes, child changes)
+- State (data) of the component
+- The result of a computation
+
+If displayed in the UI (i.e. `<template>`), any change to the dynamic data will trigger an **automatic** re-render.
+
+### Text Interpolation
+
+The simplest way to display dynamic data in the `<template>` is using the *text interpolation* syntax: `{{ ... }}`.
+
+```vue
+<template>
+  <div>
+    <h1>{{ `title` }}</h1>`
+    <p>Welcome {{ `isNewUser ? "" : "back"` }}, {{ `username` }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: {
+      `username`: String
+    }
+    data() {
+      return {
+        `title`: "Welcome!",
+        `isNewUser`: true,
+      };
+    }
+  };
+</script>
+```
+
+Note that it can also contain expressions, such as `isNewUser ? "" : "back"`.
+
+### Directives
+
+VueJS provides special HTML attributes called **directives**, all starting with `v-`. Some of them are:
+
+- `v-if`: conditionally render an element
+  ```vue
+    <!-- Assuming shouldShow is a dynamic variable (i.e. prop or data). -->
+    <p `v-if="shouldShow"`>This will show if shouldShow is true</p>
+  ```
+- `v-bind`: sets the value of another attribute to a dynamic value
+  ```vue
+    <!-- Assuming myClass is a dynamic variable (i.e. prop or data). -->
+    <p `v-bind:class="currentClass"`>Will have the class stored in currentClass</p>
+    <!-- Assuming myData is a dynamic variable (i.e. prop or data), and -->
+    <!-- OtherComponent is a component expecting a myprop property -->
+    <OtherComponent `v-bind:myprop="myData"` />
+  ```
+- `v-on`: listens to DOM events and runs specified code when triggered
+  ```vue
+    <!-- Assuming myMethod is a method of the component -->
+    <button `v-on:click="myMethod"`>Click me!</button>
+  ```
+
+#### Shorthand notations
+
+VueJS provides shorthand notations for the most common directives:
+
+- `v-bind` can be replaced by `:`
+  ```vue
+    <p `:class="currentClass"`>Will have the class stored in currentClass</p>
+    <OtherComponent `:myprop="myData"` />
+  ```
+- `v-on` can be replaced by `@`
+  ```vue
+    <button `@click="myMethod"`>Click me!</button>
+  ```  
+
+## Back to our project
+
+<!-- slide-front-matter class: center, middle -->
+
+### Create a new component
+
+Create a new file in the `components` directory, called `CountIncrementer.vue`.
+
+It will display a counter and a button to increment it. For now, keep it static.
+
+```vue
+<template>
+  <div>
+    <button>Increment</button>
+    <p>Count: TBD</p>
+  </div>
+</template>
+```
+
+Define the component in the `<script>` section.
+
+```vue
+<script>
+  export default {
+    // TODO
+  };
+</script>
+```
+
+#### Display our new component
+
+To display our new component in `App.vue`, we need to
+- import the component into `App.vue`,
+- list the component as a child of the `App` component,
+- use the component in the `App` component's template.
+
+```vue
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  `<CountIncrementer />`
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+*import CountIncrementer from './components/CountIncrementer.vue'
+
+export default {
+  name: 'App',
+  components: {
+    `CountIncrementer`,
+    HelloWorld
+  }
+}
+</script>
+```
+
+#### Our counter's state
+
+We need a state variable to store the current count.
+
+```vue
+<script>
+  export default {
+*    data() {
+*      return {
+*        count: 0
+*      };
+*    }
+  };
+</script>
+```
+
+That value will be the displayed count in the `<template>` section.
+
+```vue
+<template>
+  <div>
+    <button>Increment</button>
+    `<p>Count: {{ count }}</p>`
+  </div>
+</template>
+```
+
+We are now showing dynamic data! Though it's not very dynamic yet...
+
+#### Incrementing the count
+
+Let's increment the counter when the button is clicked.
+
+```vue
+<template>
+  <div>
+    <button `v-on:click="count++"`>Increment</button>
+    <p>Count: {{ count }}</p>
+  </div>
+</template>
+```
+
+Or equivalently, using the shorthand notation,
+```vue
+    <button `@click="count++"`>Increment</button>
+```
+
+#### Using methods
+
+This `count++` code could be extracted into a method.
+
+```vue
+<template>
+  <div>
+    <button @click="`incrementCount`">Increment</button>
+    <p>Count: {{ count }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data: // ...
+*    methods: {
+*      incrementCount() {
+*        this.count++;
+*      }
+*    }
+  };
+</script>
+```
+
+#### Separate state
+
+We can now have multiple counters in our app, each with its own state.
+
+Let's add a second counter to `App.vue`.
+
+```vue
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CountIncrementer />
+  `<CountIncrementer />`
+</template>
+```
+
+We now have two counters, each with its own state. That's pretty D.R.Y.!
+
+#### Taking a prop on the counter
+
+Let's say we want to have a different increment step for the second counter. We'll need to use props.
+
+To tell Vue that `CountIncrementer` takes a prop, we need to declare it in the component's description.
+
+```vue
+<script>
+  export default {
+    data: // ...
+*   props: {
+*     incrementStep: Number
+*   },
+    methods: // ...
+  };
+</script>
+```
+
+Note that we could also specify a default value using the `default` property.
+
+```json
+    props: {
+      incrementStep: `{`
+        `type: Number,`
+        `default: 1`
+      `}`
+    },
+```
+
+#### Using the prop in the counter
+
+We can now use the `incrementStep` prop in the `incrementCount` method, and (why not) in the template.
+
+```vue
+<template>
+  <div>
+    <button @click="incrementCount">Increment by {{ `incrementStep` }}</button>
+    <p>Count: {{ count }}</p>
+  </div>
+</template>
+
+<script>
+  export default {
+    data: // ...
+    props: {
+      incrementStep: { type: Number, default: 1 }
     },
     methods: {
-      someonesayshi() {
-        console.log("What a beautiful day!");
+      incrementCount() {
+        `this.count += this.incrementStep;`
       }
     }
   };
 </script>
 ```
+
+#### Passing the prop from the parent
+
+We can now pass the desired `incrementStep` prop from the parent component (`App.vue`).
+
+```vue
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <CountIncrementer />
+  <CountIncrementer `:incrementStep="2"` />
+</template>
+```
+
+Because we provided a default value for `incrementStep`, we may also omit it, in which case it will default to 1.
+
+**Note** : *we are passing the value through `:incrementStep` (shorthand for `v-bind:`), and not `incrementStep`. This is because, otherwise, it would be interpreted as a string, not a number, and we would get a warning.*
+
+## Dynamic Rendering
+
+Back to Directives.
+
+<!-- slide-front-matter class: center, middle -->
+
+### More directives : `v-for`
+
+`v-for` tells VueJS to render an element multiple times, once per item of a list.
+
+It takes a value of the form `<item> in <items>`, where
+- `<items>` is the name of an array stored as a data or a prop,
+- `<item>` is the name we want to give to the current item in the iteration. We can then use it to display the item, for example.
+
+```vue
+// Assuming items is an array stored as a data or prop.
+<template>
+  <ul>
+    <li `v-for="item in items"`>{{ `item` }}</li>
+  </ul>
+</template>
+```
+
+One can also get the index of the item in the iteration by using the form `<item>, <index> in <items>`.
+
+```vue
+<template>
+  <ul>
+    <li `v-for="item, index in items"`>Item n°{{ `index + 1` }}: {{ `item` }}</li>
+  </ul>
+</template>
+```
+
+#### Specifying a key
+
+When using `v-for` to render a list of components, it is important to specify a `key` attribute.
+
+```vue
+<template>
+  <ul>
+    <!-- Assuming items is an array of objects with an id and a text property. -->
+    <li v-for="item in items" `:key="item.id"`>{{ item.text }}</li>
+  </ul>
+</template>
+```
+
+The reason is that Vue uses the `key` to keep track of which components are which, and to know when to re-render them.
+
+For example, if item with key `1` is removed from the list, Vue will know which component to remove, instead of having to re-render the whole list.
+
+The `key` should thus **uniquely identify** the item in the list.
+
+### More directives : `v-model`
+
+The `v-model` directive is used to create two-way bindings on input elements.
+
+For example, instead of writing the following
+
+```vue
+<template>
+  <input `v-bind:value="myValue"` `v-on:input="myValue = $event.target.value"` />
+</template>
+```
+
+We can simply write
+
+```vue
+<template>
+  <input `v-model="myValue"` />
+</template>
+```
+
+The `myValue` dynamic variable will then be updated whenever the input changes, and vice versa.
+
+## Back to our project
+
+Let's implement a to-do list.
+
+<!-- slide-front-matter class: center, middle -->
+
+### What we need
+
+We will now create
+- A component representing a task
+- A component representing a form to add a task
+- A component representing the list of tasks
+
+### The task component
+
+Create a new file in the `components` directory, called `ToDoItem.vue`.
+
+It will take a `desc` prop containing the description of the task, and display it.
+
+```vue
+<template>
+  <div>{{ desc }}</div>
+</template>
+
+<script>
+  export default {
+    props: {
+      desc: String
+    }
+  };
+</script>
+```
+
+Quick and simple.
+
+You can insert that component in `App.vue` to see that it works.
+
+### The list of tasks
+
+Create a new file in the `components` directory, called `ToDoList.vue`.
+
+It will *store* the list of tasks as state, and display each of them as a `ToDoItem`.
+
+The state will thus be something like
+```js
+    data() {
+      return {
+        tasks: ["Buy milk", "Do homework", "Call mom"]
+      };
+    }
+```
+
+And the template will contain something like
+```vue
+    <div class="tasks">
+      <ToDoItem :desc="task" v-for="task, idx in tasks" :key="idx" />
+    </div>
+```
+
+*Note that, for simplicity, we are using the item's index as the `key` here. This is not ideal, because if an item is removed, all items after it will be re-rendered.*
+
+#### The list of tasks's whole file
+
+Here is the whole file for `ToDoList.vue`.
+
+```vue
+<template>
+  <div>
+    <h2>My to-do list</h2>
+    <div class="tasks">
+      <ToDoItem :desc="task" v-for="task, idx in tasks" :key="idx" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import ToDoItem from "./ToDoItem.vue";
+
+  export default {
+    components: {
+      ToDoItem
+    },
+    data() {
+      return {
+        tasks: ["Buy milk", "Do homework", "Call mom"]
+      };
+    }
+  };
+</script>
+```
+
+### The input to add a task
+
+To add new tasks, we will need an `<input>` and a `<button>`.
+
+The `<input>` will be bound with `v-model` to a state variable.
+```vue
+    <input v-model="taskDesc" />
+```
+```vue
+    data() {
+      return {
+        taskDesc: ""
+      };
+    }
+```
+
+While the button will call a method when clicked.
+```vue
+    <button @click="addTask">Add</button>
+```
+
+```vue
+    methods: {
+      addTask() {
+        console.log("Adding task", this.taskDesc);
+      }
+    }
+```
+
+#### The input component's whole file
+
+The entire component file for `ToDoInput.vue` is as follows.
+
+```vue
+<template>
+  <div>
+    <input v-model="taskDesc" />
+    <button @click="addTask">Add</button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        taskDesc: ""
+      };
+    },
+    methods: {
+      addTask() {
+        console.log("Adding task", this.taskDesc);
+      }
+    }
+  };
+</script>
+```
+
+#### Adding the input to the list
+
+The To-do list can now be updated to include the input.
+
+```vue
+<template>
+  <div>
+    <h2>My to-do list</h2>
+    `<ToDoInput />`
+    <div class="tasks">
+      <ToDoItem :desc="task" v-for="task, idx in tasks" :key="idx" />
+    </div>
+  </div>
+</template>
+
+<script>
+  import ToDoItem from "./ToDoItem.vue";
+  `import ToDoInput from "./ToDoInput.vue";`
+
+  export default {
+    components: {
+      `ToDoInput`,
+      ToDoItem
+    },
+    data: // ...
+  };
+</script>
+```
+
+How do we add the task to the list? Let's see.
+
+## Events
+
+Letting children notify their parents.
+
+<!-- slide-front-matter class: center, middle -->
+
+### Event emission
+
+A component can emit an event to its parent using the `this.$emit` method.
+
+```vue
+<template>
+  <div>
+    <input v-model="taskDesc" />
+    <button @click="addTask">Add</button>
+  </div>
+</template>
+
+<script>
+  export default {
+    data: // ...
+    methods: {
+      addTask() {
+        `this.$emit("task-added", this.taskDesc);`
+      }
+    }
+  };
+</script>
+```
+
+- The first argument is the name we choose for the event.
+- All subsequent arguments are data we want to pass to the parent, if any.
+
+### Event listening
+
+A parent can listen to its children's events like any other event (e.g. `click`, `submit`, etc), i.e. using the `v-on` directive.
+
+```vue
+<template>
+  <div>
+    <ToDoInput `@task-added="addTask"` />
+    <!-- ... -->
+  </div>
+</template>
+
+<script>
+  import ToDoInput from "./ToDoInput.vue";
+
+  export default {
+    components: // ...
+    data: // ...
+    methods: {
+*      addTask(taskDesc) {
+*        console.log("Adding task", taskDesc);
+*        this.tasks.push(taskDesc);
+*      }
+    }
+  };
+</script>
+```
+
+Try it and see what happens!
+
+### Adding tasks
+
+What happens is
+
+1. As we type into the input field, the `taskDesc` state variable is updated.
+
+2. When we click the "Add" button, the `addTask` method is called.
+
+3. This method emits a `task-added` event, passing the `taskDesc` to the parent.
+
+4. When the parent receives this event, it adds the task to its list of tasks.
+
+5. VueJS, noticing that the list of tasks has changed, **re-renders the list of tasks for you!**
+
+
+### Completing a task
+
+We will add a button to each task, that will notify the parent when clicked.
+
+```vue
+<template>
+  <div>
+*    <input type="checkbox" @change="completeTask" />
+    {{ desc }}
+  </div>
+</template>
+```
+
+```vue
+    methods: {
+*      completeTask() {
+*        this.$emit("task-completed");
+*      }
+    }
+```
+
+### Removing completed tasks
+
+The parent will listen to the `task-completed` event, and remove the task from the list.
+
+```vue
+    <ToDoItem
+        :desc="task"
+        v-for="(task, idx) in tasks"
+        :key="idx"
+        `@task-completed="removeTask(idx)"` />
+```
+
+```vue
+    methods: {
+      addTask(taskDesc) {
+        // ...
+      },
+*      removeTask(idx) {
+*        this.tasks.splice(idx, 1);
+*      }
+    }
+```
+
+Again, when VueJS notices that the list has changed, it will automatically rerender it, so we're done!
+
+
+## Final VueJS features
+
+For the curious.
+
+<!-- slide-front-matter class: center, middle -->
+
+### Lifecycle hooks
+
+The component description objects can contain special methods that are called at different points in the component's lifecycle.
+
+```vue
+<script>
+  export default {
+    // ...
+    created() {
+      // Called when the component is created
+    },
+    mounted() {
+      // Called when the component is mounted to the DOM
+    },
+    updated() {
+      // Called when any of the component's data or props changes
+    },
+    destroyed() {
+      // Called when the component is destroyed
+    }
+    // and many more
+  };
+</script>
+```
+
+See [here](https://vuejs.org/guide/essentials/lifecycle.html) for a complete list.
+
+### The `this` keyword
+
+In VueJS, the `this` keyword allows you to access the component's state, props, methods, etc. from methods and lifecycle hooks.
+
+```vue
+<script>
+  export default {
+    data() {
+      return {
+        count: 0
+      };
+    },
+    methods: {
+      increment() {
+        `this`.count++;
+      }
+    }
+  };
+</script>
+```
+
+Note however that it was not necessary from the `<template>` section:
+
+```vue
+<template>
+  <button @click="`increment`">Increment (currently {{ `count` }})</button>
+</template>
+```
+
+### Slots (a.k.a. children)
+
+A component's `<template>` can have a `<slot>` element, which will be replaced by the component's children.
+
+Let's say we have a `Popup` component that can contain any content.
+
+```vue
+<template>
+  <div class="popup">
+    <h2>{{ title }}</h2>
+    `<slot />`
+  </div>
+</template>
+```
+
+Any other component using `Popup` will be able to insert content into the `slot` when using it.
+
+```vue
+<template>
+  <Popup title="My Popup">
+*    <p>This is the content of my popup.</p>
+  </Popup>
+</template>
+```
+
+Everything between `<Popup></Popup>` will replace the `<slot>` element in `Popup`'s template.
+
+## Let's finish that to-do list
+
+Make it look professional!
+
+<!-- slide-front-matter class: center, middle -->
+
+### Preventing empty tasks
+
+We will display an error message if the user tries to add an empty task.
+
+Let's create an error popup component.
+
+```vue
+<template>
+  <div class="error-popup">
+    <slot/>
+  </div>
+</template>
+
+<script>
+  export default {};
+</script>
+
+<style>
+  .error-popup {
+    color: red;
+  }
+</style>
+```
+
+### Using the error popup
+
+The input component will store an error message, and display the error popup when that message is not empty.
+
+```vue
+    data() {
+      return {
+        taskDesc: "",
+        `errorMessage: ""`
+      };
+    },
+```
+
+```vue
+    <ErrorPopup `v-if="errorMessage != ''"`>
+      {{errorMessage}}
+    </ErrorPopup>
+```
+
+Of course, to use it, we'll need to import it and list it as a child component.
+
+```vue
+<script>
+*  import ErrorPopup from "./ErrorPopup.vue";
+  export default {
+*    components: {
+*      ErrorPopup
+*    },
+    // ...
+  };
+</script>
+```
+
+### Showing the error popup
+
+Finally, we can set an error message when the user tries to add an empty task.
+
+```vue
+    methods: {
+      addTask() {
+*        if (this.taskDesc === "") {
+*          this.errorMessage = "Task description cannot be empty";
+*          return;
+*        }
+        this.tasks.push(this.taskDesc);
+        this.taskDesc = "";
+      }
+    }
+```
+
+Again, VueJS will automatically detect that there is an error message, and show the popup, because of the `v-if` we used.
+
+### Hiding the popup
+
+We don't want that popup to show forever. Since we only display it when it is not empty, we can simply clear it when the user types into the input.
+
+```vue
+<template>
+  <div>
+    <input v-model="taskDesc" `@input="errorMessage = ''"` />
+    <button @click="addTask">Add</button>
+    <ErrorPopup v-if="errorMessage != ''">
+      {{errorMessage}}
+    </ErrorPopup>
+  </div>
+</template>
+```
+
+VueJS will then see that the error message is empty, and hide the popup.
+
+## Full result: To-Do List
+
+<!-- slide-front-matter class: center, middle -->
+
+[**Clone the full project here**](https://github.com/heig-mdt-gio1/vuejs-demo)
 
 ## Cheat Sheet Components
 
@@ -581,49 +1238,6 @@ Custom event are used to signal from a child component to notify a parent compon
   <img src='https://miro.medium.com/max/1000/1*C4A0g1KYpa_olbSJcxAEBA.png' class='w95' />
 </p>
 <sup>[**Source**][cpt-cheatsheet]</sup>
-
-## Full example: To-Do List
-
-<!-- slide-front-matter class: center, middle -->
-
-[**Making a to-do list with Vuejs**][todo-example]
-
-## \* _Bamf_ \* Teleport (new feature Vuejs 3.0)
-
-Teleports are a way to keep a Template code where he should be logically located (data, event, props) and later on, to move it to different part of the DOM.
-
-<sup>[**Link to the documentation**][vue-doc-teleport]</sup>
-
-[**Further reading on teleport**][teleport-example]
-
-### /// In Vue.js
-
-```html
-[HTML Target]
-<p>Hello</p>
-<div id="portal-target"></div>
-```
-
-```html
-[HTML Template]
-<template>
-  <p>{{mydata}}</p>
-  <teleport to='#portal-target'>
-</template>
-<script>
-  export  default {
-    data() { // data function
-      return { //return object
-        mydata:"World!"
-      }
-    }
-  }
-</script>
-```
-
-> Hello
-
-> World!
 
 ## Some Best Practices
 

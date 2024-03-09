@@ -113,7 +113,7 @@ _This course uses subjects from or based on [COMEM+][comem] [architecture & depl
           <li><a href="./subjects/web-frameworks">Understanding Web Frameworks</a></li>
           <li><a href="./subjects/vuejs">Starting with vueJS</a></li>
       </ul></td>
-      <td><a href="https://github.com/Tazaf/mdt-gio1-vue-seed">VueJS practicing</a></td>
+      <td>Project's VueJS squeleton</td>
     </tr>
     <tr>
       <td>5</td><td>18.03</td>
