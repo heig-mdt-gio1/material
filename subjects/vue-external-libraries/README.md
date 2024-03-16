@@ -53,110 +53,146 @@
 
 ## Why using a router?
 
-A Single Page Application means that you don't have to refresh your browser when you switch from page to page. However, if you have a multipage application navigating between pages may be essential. That is why you need a router. 
+Recall, Vuejs is a **Single Page Application** framework. This means that it should never have to reload the page.
+
+How do you navigate between pages in a Vuejs application, then?
+
+This is where the router comes in.
 
 <sup>[**Link to the documentation**][vue-doc-router]</sup>
 
-### 1 - Router installation 
+### What is a router
 
-Install **vue-router** via command line at the root of your project:
+A router **simulates** multiple pages in a single page application.
 
-`npm install vue-router@next`
+- You define a mapping between URLs and components.
+- You specify *where* the current component should be displayed.
+- It provides "fake links" components.
+- When clicked, these components change the URL and load the associated component.
 
-### 2 - Router configuration 
-Add configuration file within your **src/** directory:
+#### Defining routes
 
-`router/index.js`
-
-<br>
-
-<ins>In 4 steps:</ins>
-- Imports
-- Array routes definition (can be merged within constructor)
-- Router constructor
-- Export 
-
-<br>
-
-<sup>_Check source link for an example of the configuration file: **Creating our routes**_</sup>
-
-<sup>[**Source**][router-example]</sup>
-
-### 2.1 - Routes definition 
+When initializing the app (i.e. in `main.js`), you define the routes that your app will use.
 
 ```javascript
-{
-    path: "/url_path",
-    name: "Route_name",
-    component: TheComponent,
+const routes = [
+  {path: '/home', component: Home},
+  {path: '/about', component: About},
+  {path: '/contact', component: Contact},
+  // ...
+]
+```
+
+Each route associates a URL path with a component.
+
+You can then create a router instance with those routes, and ask the app to use it.
+
+```javascript
+*const router = createRouter({
+*  history: createWebHistory(),
+*  routes
+*})
+
+const app = createApp(App)
+
+*app.use(router)
+
+app.mount('#app')
+```
+
+#### Specifying the route viewer
+
+Vue-router needs to know where to display the currently active component.
+
+```vue
+<template>
+  <h1>Hello App!</h1>
+  <main>
+    `<RouterView />`
+  </main>
+</template>
+```
+
+Vue-router will replace `<RouterView/>` with the component associated with the current route.
+
+#### Navigating between routes
+
+Vue-router provides a `<RouterLink>` component that implements a link to a route.
+
+```vue
+<template>
+  <nav>
+    <ul>
+      <li>`<RouterLink to="/home">Home</RouterLink>`</li>
+      <li>`<RouterLink to="/about">About</RouterLink`></li>
+      <li>`<RouterLink to="/contact">Contact</RouterLink`></li>
+    </ul>
+  </nav>
+</template>
+```
+
+Clicking on any of these links will change the URL and load the associated component in the `<RouterView>`.
+
+#### Programmatic navigation
+
+You can also navigate to a route programmatically.
+
+```js
+export default {
+  // ...
+  methods: {
+    goToHome() {
+*      this.$router.push('/home')
+    },
+    makeSearch() {
+*      this.$router.push({name: 'search', params: {query: this.query}})
+    },
+    goBack() {
+*      this.$router.go(-1)
+    }
   }
+}
 ```
 
-<br>
+### More about vue-router
 
-<ins>Mandatory items:</ins> 
--   **Path** - the URL path where this route can be found.
--   **Name** - An optional name to use when we link to this route.
--   **Component** - Which component to load when this route is called.
+<!-- slide-front-matter class: center, middle -->
 
-### 3 - Router importation 
-Add router configuration to your Vuejs application in **main.js**:
-````javascript
-import { createApp } from 'vue'
-import MyAppcomponent from './Appcomponent.vue'
-import router from './router'			        //<---- Import
+Read the [**official documentation**][vue-doc-router] for more information.
 
-const myVueInstance = createApp(MyAppcomponent)
-myVueInstance.use(router) 		           	//<---- Use
-myVueInstance.mount('#div-myvueapp')
-````
+Checkout an [**example from scratch**][router-install]
 
-### 4 - Router use 
-
-Use `<router-link>` directive to navigate between your different pages.
-
-<br>
-
-
-```html
-<router-link :to="{ name: 'Route_Name' }">Route_Title</router-link>
-```
-
-<br>
-
-<sup>[**Example from scratch**][router-install]  /  [**Further reading**][router-singlepage]</sup>
+[**Further reading**][router-singlepage]
 
 ## REST API Consumption with Axios
 <!-- slide-front-matter class: center, middle -->
 
 ## Why using Axios?
 
-Axios is a library that makes promise based HTTP requests on the browser. It supports all kinds of requests including GET, POST, PUT & DELETE. It is used to communicate between the front-end and the back-end and/or web services.
+Axios is a library that simplifies promise-based HTTP requests on the browser.
+
+It supports all kinds of requests including GET, POST, PUT & DELETE. It is used to communicate between the front-end and the back-end and/or web services.
 
 <sup>[**Link to the documentation**][axios-doc]</sup>
 
-<br>
+Of course, you may also use the native `fetch` API.
 
-[**Further reading**][axios-staydry]
-
-<br>
-Alternatively, you can use natively **_Fetch API_**.
-
-### 1 - Axios installation 
+### Using Axios
 
 Install **axios** via command line at the root of your project:
 
 `npm install axios`
 
-### 3 - Axios importation 
-Add axios directly within your vue components:
+Import it directly within your vue components:
 ````javascript
 import  axios  from  'axios'
 ````
 
-### 4 - Axios use 
-**GET REQUEST**
-```js
+### GET requests
+
+Axios offers a `get` method for making GET requests, which returns a promise that resolves to the response data.
+
+```javascript
   axios.get('BaseURL')
   .then(function (response) {
     // handle success
@@ -168,8 +204,23 @@ import  axios  from  'axios'
   });
 ```
 
-### 4 - Axios use 
-**POST REQUEST**
+It can take a second argument for additionnal request configuration, like query parameters, HTTP headers, etc.
+
+```javascript
+axios.get('BaseURL', {
+  params: {
+    ID: 12345
+  },
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+```
+
+### POST requests
+
+The `post` method takes a second argument for the body of the POST request.
+
 ```js
 axios.post('BaseURL', yourdata)
   .then(function (response) {
@@ -182,6 +233,15 @@ axios.post('BaseURL', yourdata)
   });
 ```
 
+It also takes an additional parameter for configuration like headers, etc.
+
+### Further reading
+
+<!-- slide-front-matter class: center, middle -->
+
+Check out the [**full documentation**][axios-doc] for more details.
+
+[**Further reading**][axios-staydry]
 
 ## Create interactive maps with Leaflet 
 <!-- slide-front-matter class: center, middle -->
@@ -528,7 +588,7 @@ scene.primitives.add(mygltfmodel)
 
 - Clamp to ground: [demo][demo-clampground]
 
-[vue-doc-router]:https://v3.vuejs.org/guide/routing.html#official-router
+[vue-doc-router]:https://router.vuejs.org/guide/
 [router-example]:https://learnvue.co/2020/04/a-first-look-at-vue-router-in-vue3/
 [router-singlepage]:https://medium.com/js-dojo/how-to-build-an-spa-using-vue-js-vuex-vuetify-and-firebase-using-vue-router-fc5bd065fe18
 [router-install]:https://www.vuemastery.com/blog/vue-router-a-tutorial-for-vue-3/
@@ -555,7 +615,7 @@ scene.primitives.add(mygltfmodel)
 [pic-camera-angles]:https://sites.google.com/site/projectsmartgimbal/home/TechnicalDetail
 [pic-camera-pos-ori]:http://dx.doi.org/10.1109/IPIN.2010.5646820
 [pic-ion-tile]:https://cesium.com/blog/2018/10/09/ion-3d-tiles-pipeline/
-[seed]:https://github.com/thibaud-c/seed-vuejs3.0-carto2D-3D
+[seed]:https://github.com/Tazaf/mdt-gio1-vue-seed
 [demo-camera]:https://sandcastle.cesium.com/?src=Camera.html
 [demo-gltf]:https://sandcastle.cesium.com/?src=3D%20Models.html
 [demo-geojson]:https://sandcastle.cesium.com/?src=GeoJSON%20and%20TopoJSON.html

@@ -118,7 +118,7 @@ _This course uses subjects from or based on [COMEM+][comem] [architecture & depl
     <tr>
       <td>5</td><td>18.03</td>
       <td>Web Frameworks<ul>
-          <li><a href="https://mediacomem.github.io/comem-archioweb/latest/subjects/rest/?home=https://heig-mdt-gio1.github.io/material/latest/">RESTful APIs</a></li>
+          <li><a href="./subjects/rest/?home=https://heig-mdt-gio1.github.io/material/latest/">RESTful APIs</a></li>
           <li><a href="./subjects/geolibs">Geographical Libraries</a></li>
           <li><a href="./subjects/vue-external-libraries">Vuejs External Libraries</a></li>
       </ul></td>
@@ -171,7 +171,7 @@ _2022 - [Jens Ingensand](mailto:jens.ingensand@heig-vd.ch), [Mathias Oberson](ma
 [git-branching]: https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-branching/?home=https://tazaf.github.io/heig-mdt-gio1/latest/
 [git-collab]: https://mediacomem.github.io/comem-archidep/2019-2020/subjects/git-collaborating/?home=https://tazaf.github.io/heig-mdt-gio1/latest/
 [js-modules]: https://mediacomem.github.io/comem-devmobil/latest/subjects/js-modules/?home=https://tazaf.github.io/heig-mdt-gio1/latest/
-[rest]: https://mediacomem.github.io/comem-archioweb/latest/subjects/rest/?home=https://tazaf.github.io/heig-mdt-gio1/latest/
+[rest]: ./subjects/rest/?home=https://tazaf.github.io/heig-mdt-gio1/latest/
 [js-prom-basic]: https://mediacomem.github.io/comem-devmobil/latest/subjects/js-promises-basics/?home=https://tazaf.github.io/heig-mdt-gio1/latest/
 [npm]: https://mediacomem.github.io/comem-archioweb/2019-2020/subjects/npm/?home=https://tazaf.github.io/heig-mdt-gio1/latest/
 [vue-intro]: https://vuejs.org/v2/guide/

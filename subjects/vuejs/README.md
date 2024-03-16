@@ -325,7 +325,7 @@ export default {
 Contains any CSS that should apply only to this component.
 
 ```vue
-<style>
+<style scoped>
   h1 {
     color: red;
   }
