@@ -3,7 +3,7 @@
   <head>
     <title>Vuejs External librairies (Master Développement Territorial | Géoinformatique opérationnelle : Développement avancé d’outils)</title>
     <meta charset='utf-8'>
-    <meta name='config' content='{&quot;basePath&quot;:&quot;../..&quot;,&quot;remark&quot;:{&quot;highlightLines&quot;:true,&quot;highlightSpans&quot;:true,&quot;countIncrementalSlides&quot;:false,&quot;navigation&quot;:{&quot;click&quot;:false,&quot;scroll&quot;:false,&quot;touch&quot;:true}},&quot;subjectUrl&quot;:&quot;https://github.com/heig-mdt-gio1/material/tree/526070531abadbcdb3c6d52c62e6dd43a06aab8b/subjects/vue-external-libraries/README.md&quot;}'>
+    <meta name='config' content='{&quot;basePath&quot;:&quot;../..&quot;,&quot;remark&quot;:{&quot;highlightLines&quot;:true,&quot;highlightSpans&quot;:true,&quot;countIncrementalSlides&quot;:false,&quot;navigation&quot;:{&quot;click&quot;:false,&quot;scroll&quot;:false,&quot;touch&quot;:true}},&quot;subjectUrl&quot;:&quot;https://github.com/heig-mdt-gio1/material/tree/e1c5c12b3f24e633cc6e75c2864596f37891bcc1/subjects/vue-external-libraries/README.md&quot;}'>
   </head>
   <body>
     <textarea id='source'>
@@ -25,93 +25,135 @@ class: center, middle
 
 .breadcrumbs[<a href="#1">Vuejs External librairies</a>]
 
-A Single Page Application means that you don't have to refresh your browser when you switch from page to page. However, if you have a multipage application navigating between pages may be essential. That is why you need a router. 
+Recall, Vuejs is a **Single Page Application** framework. This means that it should never have to reload the page.
+
+How do you navigate between pages in a Vuejs application, then?
+
+This is where the router comes in.
 
 <sup>[**Link to the documentation**][vue-doc-router]</sup>
 
 ---
-### 1 - Router installation 
+### What is a router
 
 .breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a>]
 
-Install **vue-router** via command line at the root of your project:
+A router **simulates** multiple pages in a single page application.
 
-`npm install vue-router@next`
+- You define a mapping between URLs and components.
+- You specify *where* the current component should be displayed.
+- It provides "fake links" components.
+- When clicked, these components change the URL and load the associated component.
 
 ---
-### 2 - Router configuration 
+#### Defining routes
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a>]
-Add configuration file within your **src/** directory:
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a> > <a href="#4">What is a router</a>]
 
-`router/index.js`
-
-<br>
-
-<ins>In 4 steps:</ins>
-- Imports
-- Array routes definition (can be merged within constructor)
-- Router constructor
-- Export 
-
-<br>
-
-<sup>_Check source link for an example of the configuration file: **Creating our routes**_</sup>
-
-<sup>[**Source**][router-example]</sup>
-
----
-### 2.1 - Routes definition 
-
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a>]
+When initializing the app (i.e. in `main.js`), you define the routes that your app will use.
 
 ```javascript
-{
-    path: "/url_path",
-    name: "Route_name",
-    component: TheComponent,
+const routes = [
+  {path: '/home', component: Home},
+  {path: '/about', component: About},
+  {path: '/contact', component: Contact},
+  // ...
+]
+```
+
+Each route associates a URL path with a component.
+
+You can then create a router instance with those routes, and ask the app to use it.
+
+```javascript
+*const router = createRouter({
+*  history: createWebHistory(),
+*  routes
+*})
+
+const app = createApp(App)
+
+*app.use(router)
+
+app.mount('#app')
+```
+
+---
+#### Specifying the route viewer
+
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a> > <a href="#4">What is a router</a>]
+
+Vue-router needs to know where to display the currently active component.
+
+```vue
+<template>
+  <h1>Hello App!</h1>
+  <main>
+    `<RouterView />`
+  </main>
+</template>
+```
+
+Vue-router will replace `<RouterView/>` with the component associated with the current route.
+
+---
+#### Navigating between routes
+
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a> > <a href="#4">What is a router</a>]
+
+Vue-router provides a `<RouterLink>` component that implements a link to a route.
+
+```vue
+<template>
+  <nav>
+    <ul>
+      <li>`<RouterLink to="/home">Home</RouterLink>`</li>
+      <li>`<RouterLink to="/about">About</RouterLink`></li>
+      <li>`<RouterLink to="/contact">Contact</RouterLink`></li>
+    </ul>
+  </nav>
+</template>
+```
+
+Clicking on any of these links will change the URL and load the associated component in the `<RouterView>`.
+
+---
+#### Programmatic navigation
+
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a> > <a href="#4">What is a router</a>]
+
+You can also navigate to a route programmatically.
+
+```js
+export default {
+  // ...
+  methods: {
+    goToHome() {
+*      this.$router.push('/home')
+    },
+    makeSearch() {
+*      this.$router.push({name: 'search', params: {query: this.query}})
+    },
+    goBack() {
+*      this.$router.go(-1)
+    }
   }
+}
 ```
 
-<br>
-
-<ins>Mandatory items:</ins> 
--   **Path** - the URL path where this route can be found.
--   **Name** - An optional name to use when we link to this route.
--   **Component** - Which component to load when this route is called.
-
 ---
-### 3 - Router importation 
-
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a>]
-Add router configuration to your Vuejs application in **main.js**:
-````javascript
-import { createApp } from 'vue'
-import MyAppcomponent from './Appcomponent.vue'
-import router from './router'			        //<---- Import
-
-const myVueInstance = createApp(MyAppcomponent)
-myVueInstance.use(router) 		           	//<---- Use
-myVueInstance.mount('#div-myvueapp')
-````
-
----
-### 4 - Router use 
+class: center, middle
+### More about vue-router
 
 .breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#3">Why using a router?</a>]
 
-Use `<router-link>` directive to navigate between your different pages.
-
-<br>
 
 
-```html
-<router-link :to="{ name: 'Route_Name' }">Route_Title</router-link>
-```
+Read the [**official documentation**][vue-doc-router] for more information.
 
-<br>
+Checkout an [**example from scratch**][router-install]
 
-<sup>[**Example from scratch**][router-install]  /  [**Further reading**][router-singlepage]</sup>
+[**Further reading**][router-singlepage]
 
 ---
 class: center, middle
@@ -125,41 +167,36 @@ class: center, middle
 
 .breadcrumbs[<a href="#1">Vuejs External librairies</a>]
 
-Axios is a library that makes promise based HTTP requests on the browser. It supports all kinds of requests including GET, POST, PUT & DELETE. It is used to communicate between the front-end and the back-end and/or web services.
+Axios is a library that simplifies promise-based HTTP requests on the browser.
+
+It supports all kinds of requests including GET, POST, PUT & DELETE. It is used to communicate between the front-end and the back-end and/or web services.
 
 <sup>[**Link to the documentation**][axios-doc]</sup>
 
-<br>
-
-[**Further reading**][axios-staydry]
-
-<br>
-Alternatively, you can use natively **_Fetch API_**.
+Of course, you may also use the native `fetch` API.
 
 ---
-### 1 - Axios installation 
+### Using Axios
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#10">Why using Axios?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#11">Why using Axios?</a>]
 
 Install **axios** via command line at the root of your project:
 
 `npm install axios`
 
----
-### 3 - Axios importation 
-
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#10">Why using Axios?</a>]
-Add axios directly within your vue components:
+Import it directly within your vue components:
 ````javascript
 import  axios  from  'axios'
 ````
 
 ---
-### 4 - Axios use 
+### GET requests
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#10">Why using Axios?</a>]
-**GET REQUEST**
-```js
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#11">Why using Axios?</a>]
+
+Axios offers a `get` method for making GET requests, which returns a promise that resolves to the response data.
+
+```javascript
   axios.get('BaseURL')
   .then(function (response) {
     // handle success
@@ -171,11 +208,26 @@ import  axios  from  'axios'
   });
 ```
 
----
-### 4 - Axios use 
+It can take a second argument for additionnal request configuration, like query parameters, HTTP headers, etc.
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#10">Why using Axios?</a>]
-**POST REQUEST**
+```javascript
+axios.get('BaseURL', {
+  params: {
+    ID: 12345
+  },
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+```
+
+---
+### POST requests
+
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#11">Why using Axios?</a>]
+
+The `post` method takes a second argument for the body of the POST request.
+
 ```js
 axios.post('BaseURL', yourdata)
   .then(function (response) {
@@ -188,6 +240,19 @@ axios.post('BaseURL', yourdata)
   });
 ```
 
+It also takes an additional parameter for configuration like headers, etc.
+
+---
+class: center, middle
+### Further reading
+
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#11">Why using Axios?</a>]
+
+
+
+Check out the [**full documentation**][axios-doc] for more details.
+
+[**Further reading**][axios-staydry]
 
 ---
 class: center, middle
@@ -199,7 +264,7 @@ class: center, middle
 ---
 ### 1 - Leaflet installation 
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#15">Create interactive maps with Leaflet </a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#16">Create interactive maps with Leaflet </a>]
 
 Install **leaflet** via command line at the root of your project:
 
@@ -213,7 +278,7 @@ Install **leaflet** via command line at the root of your project:
 ---
 ### 2 - Leaflet importation/use
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#15">Create interactive maps with Leaflet </a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#16">Create interactive maps with Leaflet </a>]
 
 Add leaflet directly within your vue components:
 ````javascript
@@ -244,7 +309,7 @@ class: center, middle
 ---
 ### 1 - Openlayers installation 
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#18">Create dynamic maps with Openlayers </a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#19">Create dynamic maps with Openlayers </a>]
 
 Install **openlayers** via command line at the root of your project:
 
@@ -257,7 +322,7 @@ Install **openlayers** via command line at the root of your project:
 ---
 ### 3 - Openlayers importation/use 
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#18">Create dynamic maps with Openlayers </a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#19">Create dynamic maps with Openlayers </a>]
 Add openlayers directly within your vue components:
 ````javascript
 import  'ol/ol.css'; 	     	// <--- use ol stylesheet
@@ -298,7 +363,7 @@ Bulma is a CSS framework that helps you to **easily** build web interfaces that 
 ---
 ### 1 - Bulma installation 
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#22">Why using Bulma?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#23">Why using Bulma?</a>]
 
 Install **Bulma** via command line at the root of your project:
 
@@ -307,7 +372,7 @@ Install **Bulma** via command line at the root of your project:
 ---
 ### 3 - Bulma importation
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#22">Why using Bulma?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#23">Why using Bulma?</a>]
 Add bulma directly in your **main.js**, before creating your App:
 
 ````javascript
@@ -319,7 +384,7 @@ import  'bulma/css/bulma.css';
 ---
 ### 3 - Start customizing your app !
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#22">Why using Bulma?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#23">Why using Bulma?</a>]
 
 .grid-80[
 - Create a button:
@@ -389,7 +454,7 @@ CesiumJS is an open source JavaScript library for creating world-class 3D globes
 ---
 ### 1 - Cesium installation
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#27">What is CesiumJS?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#28">What is CesiumJS?</a>]
 
 Install **Cesium** via command line at the root of your project:
 
@@ -398,7 +463,7 @@ Install **Cesium** via command line at the root of your project:
 ---
 ### 2 - Cesium configuration
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#27">What is CesiumJS?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#28">What is CesiumJS?</a>]
 
 CesiumJS requires a few static files to be hosted on your server. Therefore, we need to inform [webpack][webpack] (module bundler) to use these files.
 We should configure webpack to copy the following four directories and serve them as static files:
@@ -420,7 +485,7 @@ Add configuration file within your **src/** directory:
 ---
 ### 3 - Get/Import a Cesium ion token
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#27">What is CesiumJS?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#28">What is CesiumJS?</a>]
 - Create an account on Cesium
 - Go to your access token tab 
 - Copy your token
@@ -434,7 +499,7 @@ Cesium.Ion.defaultAccessToken = YOUR_CESIUM_TOKEN
 ---
 ### 3 - Create a 3D globe
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#27">What is CesiumJS?</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#28">What is CesiumJS?</a>]
 
 It's very simple, it works like Leaflet or Openlayers.
 ```javascript
@@ -466,7 +531,7 @@ class: center, middle
 ---
 ### 3D Camera
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#32">Play around with cesium's assets</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#33">Play around with cesium's assets</a>]
 
 The camera is defined by a position, orientation, and view frustum.
 
@@ -502,7 +567,7 @@ viewer.camera.flyTo({
 ---
 ### 3D Tiles
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#32">Play around with cesium's assets</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#33">Play around with cesium's assets</a>]
 
 3D Tiles define a spatial data structure and a set of tile formats designed for 3D and optimized for streaming and rendering. 3D Tile aims at minimizing client-side processing.
 
@@ -530,7 +595,7 @@ In 3D:
 ---
 ### 3D Tiles
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#32">Play around with cesium's assets</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#33">Play around with cesium's assets</a>]
 <p align="center">
   <img  src='https://cesium.com/blog/images/2018/10-09/3dtiling.png'  class='w60' />
 </p>
@@ -553,7 +618,7 @@ Swisstopo provides 3D Tiles for its 3D buildings !
 ---
 ### Imagery:  TMS (Tile Map Service) & WMTS (Web Map Tile Service)
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#32">Play around with cesium's assets</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#33">Play around with cesium's assets</a>]
 Basemap of your 3D globe.
 ```javascript
 viewer.scene.imageryLayers.removeAll();
@@ -571,7 +636,7 @@ It works with Swisstopo WMTS too !
 ---
 ### Terrain: Quantized Mesh
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#32">Play around with cesium's assets</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#33">Play around with cesium's assets</a>]
 DEM used by your globe. A quantized mesh (reindexed mesh) is used to improve rendering performance.
 <p align="center">
   <img  src='https://cesium.com/blog/images/2015/12-18/terrain-obb-wireframe.png'  class='w40' />
@@ -593,7 +658,7 @@ And it works with Swisstopo terrain tiles too !
 ---
 ### glTF (GL Transmission Format)
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#32">Play around with cesium's assets</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#33">Play around with cesium's assets</a>]
 
 Format to describe 3D models (geometry, textures, lights). It's considered as the "JPEG of 3D". There is two possible file extensions, .gltf (JSON/ASCII) or .glb (binary). 
 
@@ -623,7 +688,7 @@ class: center, middle
 ---
 ### Sandcastle examples linked to your projects
 
-.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#39">Project's seed</a>]
+.breadcrumbs[<a href="#1">Vuejs External librairies</a> > <a href="#40">Project's seed</a>]
 - Cameras: [demo][demo-camera]
 
 - Gltf objects import: [demo][demo-gltf]
@@ -634,7 +699,7 @@ class: center, middle
 
 - Clamp to ground: [demo][demo-clampground]
 
-[vue-doc-router]:https://v3.vuejs.org/guide/routing.html#official-router
+[vue-doc-router]:https://router.vuejs.org/guide/
 [router-example]:https://learnvue.co/2020/04/a-first-look-at-vue-router-in-vue3/
 [router-singlepage]:https://medium.com/js-dojo/how-to-build-an-spa-using-vue-js-vuex-vuetify-and-firebase-using-vue-router-fc5bd065fe18
 [router-install]:https://www.vuemastery.com/blog/vue-router-a-tutorial-for-vue-3/
@@ -661,7 +726,7 @@ class: center, middle
 [pic-camera-angles]:https://sites.google.com/site/projectsmartgimbal/home/TechnicalDetail
 [pic-camera-pos-ori]:http://dx.doi.org/10.1109/IPIN.2010.5646820
 [pic-ion-tile]:https://cesium.com/blog/2018/10/09/ion-3d-tiles-pipeline/
-[seed]:https://github.com/thibaud-c/seed-vuejs3.0-carto2D-3D
+[seed]:https://github.com/Tazaf/mdt-gio1-vue-seed
 [demo-camera]:https://sandcastle.cesium.com/?src=Camera.html
 [demo-gltf]:https://sandcastle.cesium.com/?src=3D%20Models.html
 [demo-geojson]:https://sandcastle.cesium.com/?src=GeoJSON%20and%20TopoJSON.html
